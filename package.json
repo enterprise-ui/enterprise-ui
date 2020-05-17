@@ -1,0 +1,23 @@
+{
+    "name": "@enterprise-ui/enterprise-ui-root",
+    "private": true,
+    "workspaces": {
+        "packages": [
+          "packages/*",
+          "examples/**/packages/*"
+        ]
+    },
+    "scripts": {
+      "preinstall1" : "node ./tools/preinstall.js",
+      "cmd": "enterprise-ui develop",
+      "build": "cd packages/enterprise-ui; yarn build",
+      "ci:app:tags": "node packages/app/ci/tags.js",
+      "ci:storybook:tags": "node packages/storybook/ci/tags.js",
+      "ci:subnamespace": "node ci/subnamespace.js",
+      "ci:subdomain": "node ci/subdomain.js"
+    },
+    "devDependencies": {
+      "cross-env": "7.0.2",
+      "ts-node": "^8.10.1"
+    }
+  }
