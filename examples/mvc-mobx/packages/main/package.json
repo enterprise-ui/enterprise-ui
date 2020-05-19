@@ -1,12 +1,11 @@
 {
-  "name": "@enterprise-ui/mvc-mobx-app",
+  "name": "@enterprise-ui/mvc-mobx-main",
   "version": "0.1.0",
-  "main": "dist/index.js",
-  "mainsrc": "src/index.ts",
+  "main": "src/index.tsx",
+  "mainsrc": "src/index.tsx",
   "private": true,
   "dependencies": {
     "@enterprise-ui/enterprise-ui": "0.1.0",
-    "@enterprise-ui/mvc-mobx-main": "0.1.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
