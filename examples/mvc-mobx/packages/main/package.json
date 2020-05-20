@@ -48,9 +48,6 @@
     "polished": "^3.5.1",
     "prettier": "^2.0.2",
     "spacing-helper": "^3.0.1",
-    "styled-components": "^5.1.0",
-    "styled-normalize": "^8.0.7",
-    "styled-theming": "^2.2.0",
     "ts-loader": "7.0.4",
     "ts-node": "^8.10.1",
     "typescript": "^3.8.3",
@@ -70,12 +67,14 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^5.1.0",
+    "styled-normalize": "^8.0.7",
+    "styled-theming": "^2.2.0"
   },
   "scripts": {
-    "compile": "webpack build",
+    "build": "webpack build",
     "develop": "enterprise-ui develop",
-    "build": "enterprise-ui build",
     "start": "enterprise-ui start",
     "startssr": "enterprise-ui startssr"
   },

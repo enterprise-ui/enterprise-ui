@@ -1,5 +1,7 @@
 const path = require('path');
 const LoadablePlugin = require('@loadable/webpack-plugin');
+const webpack = require('webpack');
+const express = require('express');
 
 module.exports = {
   modules: {
@@ -30,21 +32,22 @@ module.exports = {
       webpackConfig.plugins = webpackConfig.plugins.concat(new LoadablePlugin());
 
 
-      // console.log(webpackConfig)
-      // webpackConfig.devServer = {
-      //   before: function(app, server, compiler) {
-      //     app.get('/qwe', function(req, res) {
-      //       res.json({ custom: 'response' });
-      //     });
-      //   }
-      // }
+      webpackConfig.mode = "production"
+
+      webpackConfig.externals = {
+        "react": "React",
+        "react-dom": "ReactDOM"
+      }
 
       return webpackConfig
     },
   },
   devServer: {
-    proxy: {
-        '/modules': 'http://localhost:5000'
+    before: function(app, server, compiler) {
+      app.use(
+        '/modules/main/',
+        express.static(path.dirname(require.resolve('@enterprise-ui/mvc-mobx-main')))
+      )
     }
   }
 }

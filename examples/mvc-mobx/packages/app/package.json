@@ -67,13 +67,15 @@
     "styled-theming": "^2.2.0",
     "ts-node": "^8.10.1",
     "typescript": "^3.8.3",
+    "webpack": "4.43.0",
+    "webpack-cli": "webpack-cli",
     "webpack-node-externals": "1.7.2",
     "yargs": "15.3.1"
   },
+  "peerDependencies": {
+  },
   "scripts": {
-    "develop:all": "npm-run-all --parallel develop:proxy develop:ui",
-    "develop:ui": "enterprise-ui develop",
-    "develop:proxy": "ts-node --project ./tsconfig.server.json proxy.ts",
+    "develop": "enterprise-ui develop",
     "build": "enterprise-ui build",
     "start": "enterprise-ui start",
     "startssr": "enterprise-ui startssr"

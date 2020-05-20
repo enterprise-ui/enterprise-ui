@@ -8,7 +8,8 @@ const nodeExternalsOptions = {
 
 module.exports = {
   entry: './src/index.tsx',
-  // mode: 'development',
+  mode: 'production',
+  //   mode: 'development',
   module: {
     rules: [
       {
@@ -26,23 +27,12 @@ module.exports = {
     libraryTarget: 'umd',
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/modules/main/',
   },
-  // externals: [
-  //   nodeExternals({
-  //     modulesDir: path.resolve(__dirname, '../../../../node_modules'),
-  //     ...nodeExternalsOptions,
-  //   }),
-  // ],
   externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM'
-  },
-  plugins: [
-    // new webpack.HotModuleReplacementPlugin(),
-    new webpack.ProvidePlugin({
-      'React':     'react'
-    })
-  ],
+    "react": "React",
+    "react-dom": "ReactDOM"
+  }
 
 
 };
