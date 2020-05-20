@@ -1,10 +1,11 @@
 {
   "name": "@enterprise-ui/mvc-mobx-main",
   "version": "0.1.0",
-  "main": "src/index.tsx",
+  "main": "dist/bundle.js",
   "mainsrc": "src/index.tsx",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^5.6.4",
     "@enterprise-ui/enterprise-ui": "0.1.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
@@ -46,6 +47,19 @@
     "mobx-react": "^6.2.2",
     "polished": "^3.5.1",
     "prettier": "^2.0.2",
+    "spacing-helper": "^3.0.1",
+    "styled-components": "^5.1.0",
+    "styled-normalize": "^8.0.7",
+    "styled-theming": "^2.2.0",
+    "ts-loader": "7.0.4",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.8.3",
+    "webpack": "4.43.0",
+    "webpack-cli": "webpack-cli",
+    "webpack-node-externals": "1.7.2",
+    "yargs": "15.3.1"
+  },
+  "peerDependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-i18next": "^11.3.4",
@@ -56,17 +70,10 @@
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
-    "redux-thunk": "^2.3.0",
-    "spacing-helper": "^3.0.1",
-    "styled-components": "^5.1.0",
-    "styled-normalize": "^8.0.7",
-    "styled-theming": "^2.2.0",
-    "ts-node": "^8.10.1",
-    "typescript": "^3.8.3",
-    "webpack-node-externals": "1.7.2",
-    "yargs": "15.3.1"
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
+    "compile": "webpack build",
     "develop": "enterprise-ui develop",
     "build": "enterprise-ui build",
     "start": "enterprise-ui start",

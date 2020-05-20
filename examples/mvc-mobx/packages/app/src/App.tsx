@@ -2,6 +2,11 @@ import React, { useEffect } from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import { AppState, TimerView } from './TimerView'
 
+declare global {
+  interface Window { mymodule: any; }
+  const mymodule: any
+}
+
 export const App = () => {
   let history = useHistory()
   console.log('history', history)
@@ -10,7 +15,13 @@ export const App = () => {
     return history.listen(async (location) => {
       console.log(`You changed the page to: ${location.pathname}`)
       if (location.pathname === '/main') {
-        const { Routes } = await import('@enterprise-ui/mvc-mobx-main')
+        // const { Routes } = await import('@enterprise-ui/mvc-mobx-main')
+
+        const lib = 'http://localhost:3000/modules/main/bundle.js'
+
+        await import(/* webpackIgnore: true */lib)
+        // console.log('mymodule', mymodule)
+        const { Routes } = mymodule
         setRouter(<Routes />)
       }
     })

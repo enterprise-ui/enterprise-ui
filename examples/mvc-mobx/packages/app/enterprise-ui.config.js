@@ -19,7 +19,7 @@ module.exports = {
       // ../uikit/src works
       .concat([
         'main'
-      ].map(p => path.resolve(__dirname, '..', p, 'src')));
+      ].map(p => path.resolve(__dirname, '..', p, 'dist')));
 
       console.log('include', include);
       // linter
@@ -29,7 +29,22 @@ module.exports = {
 
       webpackConfig.plugins = webpackConfig.plugins.concat(new LoadablePlugin());
 
+
+      // console.log(webpackConfig)
+      // webpackConfig.devServer = {
+      //   before: function(app, server, compiler) {
+      //     app.get('/qwe', function(req, res) {
+      //       res.json({ custom: 'response' });
+      //     });
+      //   }
+      // }
+
       return webpackConfig
     },
   },
+  devServer: {
+    proxy: {
+        '/modules': 'http://localhost:5000'
+    }
+  }
 }

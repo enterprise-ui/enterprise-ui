@@ -2,6 +2,7 @@ const path = require('path')
 const { createWebpackDevConfig, ESLINT_MODES, whenTest } = require('@craco/craco')
 
 const webpackConfigPath = 'react-scripts/config/webpack.config.js'
+const webpackDevServerConfigPath = 'react-scripts/config/webpackDevServer.config.js'
 
 config = {
   babel: {
@@ -20,11 +21,19 @@ config = {
   }
 }
 
-const { modules, ...appConfig } = require(path.join(process.cwd() + '/enterprise-ui.config'))
+const { modules, devServer, ...appConfig } = require(path.join(process.cwd() + '/enterprise-ui.config'))
 const webpackConfig = createWebpackDevConfig({...config, ...appConfig})
-var q = require.cache[require.resolve(webpackConfigPath)]
-if (q) {
-    q.exports = (env) => webpackConfig
+
+var originalWebpackConfigModule = require.cache[require.resolve(webpackConfigPath)]
+if (originalWebpackConfigModule) {
+   originalWebpackConfigModule.exports = (env) => webpackConfig
+}
+
+require(webpackDevServerConfigPath)
+var originalDevServerModule = require.cache[require.resolve(webpackDevServerConfigPath)]
+if (originalDevServerModule) {
+  var originalDevServer = originalDevServerModule.exports
+  originalDevServerModule.exports = (proxy, allowedHost) => ({...originalDevServer(proxy, allowedHost), ...devServer})
 }
 
 require('react-scripts/scripts/start')

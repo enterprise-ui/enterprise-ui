@@ -10,9 +10,7 @@
 
 # production
 /build
-/dist/*
-!/dist/index.stub.js
-
+/dist
 
 # misc
 .DS_Store
