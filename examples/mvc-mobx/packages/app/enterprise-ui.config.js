@@ -1,24 +1,18 @@
 const path = require('path');
 const LoadablePlugin = require('@loadable/webpack-plugin');
 const webpack = require('webpack');
+const CopyPlugin = require('copy-webpack-plugin');
 const express = require('express');
+const enterprise_ui = require('@enterprise-ui/enterprise-ui')
 
-module.exports = {
-  modules: {
-    '/main': '@enterprise-ui/mvc-mobx-main'
-  },
+module.exports = enterprise_ui.config({
+  modules: require('./src/config'),
   webpack: {
     configure: (webpackConfig, { env, paths }) => {
-      const include =    [
-        // packages/app/src',
+      const include = [
         webpackConfig.module.rules[1].include,
       ]
-      // ../../node_modules/cra-ts-styled-boilerplate-uikit/src is not working, because node_modules is in exclude
-      // .concat([
-      //   'cra-ts-styled-boilerplate-uikit',
-      // ].map(p => path.resolve(__dirname, '../../node_modules', p, 'src')))
 
-      // ../uikit/src works
       .concat([
         'main'
       ].map(p => path.resolve(__dirname, '..', p, 'dist')));
@@ -29,7 +23,17 @@ module.exports = {
       // loader
       webpackConfig.module.rules[2].oneOf[1].include = include;
 
-      webpackConfig.plugins = webpackConfig.plugins.concat(new LoadablePlugin());
+      webpackConfig.plugins = webpackConfig.plugins.concat([
+        new LoadablePlugin(),
+        new CopyPlugin({
+          patterns: [
+            { from: path.dirname(require.resolve('@enterprise-ui/mvc-mobx-main')), to: 'static/main' },
+          ],
+          options: {
+            concurrency: 100,
+          },
+        }),
+      ]);
 
 
       webpackConfig.mode = "production"
@@ -42,12 +46,12 @@ module.exports = {
       return webpackConfig
     },
   },
-  devServer: {
-    before: function(app, server, compiler) {
-      app.use(
-        '/modules/main/',
-        express.static(path.dirname(require.resolve('@enterprise-ui/mvc-mobx-main')))
-      )
-    }
-  }
-}
+  // devServer: {
+  //   before: function(app, server, compiler) {
+  //     app.use(
+  //       '/main/',
+  //       express.static(path.dirname(require.resolve('@enterprise-ui/mvc-mobx-main')))
+  //     )
+  //   }
+  // }
+})

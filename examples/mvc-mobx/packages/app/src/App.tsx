@@ -1,13 +1,21 @@
 import React from 'react'
 import { useHistory, Link } from 'react-router-dom'
 import { AppState, TimerView } from './TimerView'
+import * as _modulesConfig from './config.js'
 
 declare global {
-  interface Window { mymodule: any; }
-  const mymodule: any
+  interface Window {
+    main: any;
+  }
+  const main: any
 }
 
-// window.React = React
+const modulesConfig: {
+  [key: string]: {
+    module: string
+    moduleName: string
+  }
+} = _modulesConfig
 
 export const App = () => {
   let history = useHistory()
@@ -16,10 +24,11 @@ export const App = () => {
   React.useEffect(() => {
     return history.listen(async (location) => {
       console.log(`You changed the page to: ${location.pathname}`)
-      if (location.pathname === '/main') {
-        const lib = '/modules/main/bundle.js'
-        await import(/* webpackIgnore: true */lib)
-        const { Routes } = mymodule
+      if (modulesConfig[location.pathname]) {
+        const moduleConfig = modulesConfig[location.pathname]
+        const module = '/static' + location.pathname + '/bundle.js'
+        await import(/* webpackIgnore: true */ module)
+        const { Routes } = (window as any)[moduleConfig.moduleName]
         setRouter(<Routes />)
       }
     })

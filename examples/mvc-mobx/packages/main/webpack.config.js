@@ -23,11 +23,11 @@ module.exports = {
     extensions: [ '.tsx', '.ts', '.js' ],
   },
   output: {
-    library: 'mymodule',
+    library: 'main',
     libraryTarget: 'umd',
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/modules/main/',
+    publicPath: '/static/main/',
   },
   externals: {
     "react": "React",
