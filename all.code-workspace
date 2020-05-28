@@ -1,17 +1,21 @@
 {
-	"folders": [
-		{
-			"name": "@enterprise-ui/enterprise-ui-root",
-			"path": "."
-		},
-		{
-			"name": "@enterprise-ui/enterprise-ui",
-			"path": "packages/enterprise-ui"
-		},
-		{
-			"name": "@enterprise-ui/mvc-mobx-app",
-			"path": "examples/mvc-mobx/packages/app"
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "name": "@enterprise-ui/enterprise-ui-root",
+      "path": "."
+    },
+    {
+      "name": "@enterprise-ui/enterprise-ui",
+      "path": "packages/enterprise-ui"
+    },
+    {
+      "name": "@enterprise-ui/appcore",
+      "path": "packages/appcore"
+    },
+    {
+      "name": "@enterprise-ui/mvc-mobx-app",
+      "path": "examples/mvc-mobx/packages/app"
+    }
+  ],
+  "settings": {}
 }
