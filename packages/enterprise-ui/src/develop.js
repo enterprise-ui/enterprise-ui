@@ -4,7 +4,7 @@ const { createWebpackDevConfig, ESLINT_MODES, whenTest } = require('@craco/craco
 const webpackConfigPath = 'react-scripts/config/webpack.config.js'
 const webpackDevServerConfigPath = 'react-scripts/config/webpackDevServer.config.js'
 
-config = {
+const config = {
   babel: {
     plugins: [
       // mobx

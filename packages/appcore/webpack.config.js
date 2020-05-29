@@ -60,6 +60,6 @@ module.exports = function (webpackEnv) {
       },
     },
 
-    plugins: [new BundleAnalyzerPlugin()],
+    // plugins: [new BundleAnalyzerPlugin()],
   });
 };
