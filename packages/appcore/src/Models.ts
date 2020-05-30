@@ -61,9 +61,7 @@ interface IModuleConfig {
 }
 
 export interface IApplicationConfig {
-  modules: {
-    [path: string]: IModuleConfig;
-  };
+  [path: string]: IModuleConfig;
 }
 
 export interface IModule {

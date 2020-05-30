@@ -11,7 +11,6 @@ import injectSaga from '../store/utils/injectSaga';
 
 interface IOwnProps {
   appConfig: IApplicationConfig;
-  initialState?: any;
 }
 
 const loadModule = (path: string): Promise<IModule> => import(/* webpackIgnore: true */ path);
@@ -26,8 +25,7 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
 
   React.useEffect(() => {
     async function load() {
-      const { modules } = appConfig;
-      const target = modules[location.pathname];
+      const target = appConfig[location.pathname];
 
       if (target) {
         const { entryName, injectedReducerKey, injectedSagaKey, publicPath } = target;

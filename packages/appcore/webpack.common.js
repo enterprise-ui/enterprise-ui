@@ -30,6 +30,14 @@ module.exports = {
         loader: require.resolve('babel-loader'),
         options: {
           babelrc: false,
+          plugins: [
+            [
+              require.resolve('@babel/plugin-transform-runtime'),
+              {
+                regenerator: true,
+              },
+            ],
+          ],
           presets: [
             require.resolve('@babel/preset-env'),
             require.resolve('@babel/preset-react'),

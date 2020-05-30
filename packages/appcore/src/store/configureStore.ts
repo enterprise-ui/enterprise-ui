@@ -1,4 +1,4 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore, Reducer } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import thunkMiddleware from 'redux-thunk';
 
@@ -9,19 +9,15 @@ export const createReducer = (injectedReducers: IReducerMap = {}) =>
     ...injectedReducers,
   });
 
-export default (reducers: IReducerMap, middlewares = [], initialState?: IState): IStore => {
+export default (reducer: Reducer, middlewares = [], initialState: IState = {}): IStore => {
   const sagaMiddleware = createSagaMiddleware();
 
   const middlewaresToApply = [sagaMiddleware, thunkMiddleware, ...middlewares];
 
-  const store: IStore = createStore(
-    createReducer(reducers),
-    initialState,
-    applyMiddleware(...middlewaresToApply),
-  );
+  const store: IStore = createStore(reducer, initialState, applyMiddleware(...middlewaresToApply));
 
   store.runSaga = sagaMiddleware.run;
-  store.injectedReducers = reducers;
+  store.injectedReducers = { root: reducer };
   store.injectedSagas = {};
 
   return store;

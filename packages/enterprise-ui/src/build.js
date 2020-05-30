@@ -26,7 +26,7 @@ const writeStatsJson = argv.indexOf('--stats') !== -1;
 
 const { webpackClientConfig } = require(paths.appConfig);
 
-const config = webpackClientConfig.configure(process.env.NODE_ENV);
+const webpackConfig = webpackClientConfig.configure(process.env.NODE_ENV);
 
 checkBrowsers(paths.appPath, isInteractive)
   .then(() => {
@@ -72,7 +72,7 @@ checkBrowsers(paths.appPath, isInteractive)
 
       const appPackage = require(paths.appPackageJson);
       const publicUrl = paths.publicUrlOrPath;
-      const publicPath = config.output.publicPath;
+      const publicPath = webpackConfig.output.publicPath;
       const buildFolder = path.relative(process.cwd(), paths.appBuild);
       printHostingInstructions(appPackage, publicUrl, publicPath, buildFolder, useYarn);
     },
@@ -102,7 +102,7 @@ checkBrowsers(paths.appPath, isInteractive)
 function build(previousFileSizes) {
   console.log('Creating an optimized production build...');
 
-  const compiler = webpack(config);
+  const compiler = webpack(webpackConfig);
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
       let messages;
