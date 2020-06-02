@@ -6,7 +6,7 @@ const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
 
 const moduleFileExtensions = ['js', 'ts', 'tsx', 'json', 'jsx'];
-const packageDependencies = ['appcore'].map((packageId) => resolveApp(`../${packageId}/src`));
+const packageDependencies = ['appcore'].map((p) => resolveApp(`../${p}/build`));
 
 const publicUrlOrPath = getPublicUrlOrPath(
   process.env.NODE_ENV === 'development',

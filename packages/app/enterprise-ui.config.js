@@ -14,11 +14,12 @@ module.exports = enterprise_ui.config({
   webpackClientConfig: {
     configure: (webpackEnv) => {
       const isEnvDevelopment = webpackEnv === 'development';
-      const isEnvProduction = webpackEnv === 'production';
+      // const isEnvProduction = webpackEnv === 'production';
+      const isEnvProduction = true;
       const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 
-      return {
-        mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
+      const config = {
+        mode: 'production',
 
         devtool: 'inline-source-map',
 
@@ -34,6 +35,23 @@ module.exports = enterprise_ui.config({
         resolve: {
           extensions: paths.moduleFileExtensions.map((ext) => `.${ext}`),
           modules: ['node_modules'],
+        },
+
+        externals: {
+          '@enterprise-ui/appcore': 'AppCore',
+          'react': 'React',
+          'react-dom': 'ReactDOM',
+          'react-redux': 'ReactRedux',
+          'redux': 'Redux',
+          'react-router': 'ReactRouter',
+          'react-router-config': 'ReactRouterConfig',
+          'react-router-dom': 'ReactRouterDOM',
+          'redux-saga': 'ReduxSaga',
+          'redux-saga/effects': 'ReduxSagaEffects',
+          'redux-thunk': 'ReduxThunk',
+          'isomorphic-fetch': 'isomorphic-fetch',
+          'react-lazy-load-image-component': 'react-lazy-load-image-component',
+          // '@babel/runtime/regenerator': 'regeneratorRuntime',
         },
 
         plugins: [
@@ -121,6 +139,10 @@ module.exports = enterprise_ui.config({
           ],
         },
       };
+
+      console.log(config);
+
+      return config;
     },
   },
 });

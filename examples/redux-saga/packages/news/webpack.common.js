@@ -7,43 +7,25 @@ module.exports = {
   },
 
   externals: {
-    react: {
-      root: 'React',
-      commonjs: 'react',
-      commonjs2: 'react',
-    },
-    'react-dom': {
-      root: 'ReactDOM',
-      commonjs: 'react-dom',
-      commonjs2: 'react-dom',
-    },
-    'react-redux': 'react-redux',
-    redux: {
-      root: 'Redux',
-      commonjs: 'redux',
-      commonjs2: 'redux',
-    },
-    'redux-saga': {
-      root: 'ReduxSaga',
-      commonjs: 'redux-saga',
-      commonjs2: 'redux-saga',
-    },
-    'redux-saga/effects': {
-      root: 'ReduxSagaEffects',
-      commonjs: 'redux-saga/effects',
-      commonjs2: 'redux-saga/effects',
-    },
-    '@babel/runtime/regenerator': {
-      root: 'regeneratorRuntime',
-      commonjs: '@babel/runtime/regenerator',
-      commonjs2: '@babel/runtime/regenerator',
-    },
-    'isomorphic-fetch': 'isomorphic-fetch',
-    'react-router-config': 'react-router-config',
+    '@enterprise-ui/appcore': 'AppCore',
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    'react-redux': 'ReactRedux',
+    'redux': 'Redux',
+    'react-router': 'ReactRouter',
+    'react-router-config': 'ReactRouterConfig',
     'react-router-dom': 'ReactRouterDOM',
+    'redux-saga': 'ReduxSaga',
+    'redux-saga/effects': 'ReduxSagaEffects',
+    'redux-thunk': 'ReduxThunk',
+    'isomorphic-fetch': 'isomorphic-fetch',
     'react-lazy-load-image-component': 'react-lazy-load-image-component',
-    'react-helmet': 'react-helmet',
-    '@ssr-react/core': '@ssr-react/core',
+    // '@babel/runtime/regenerator': {
+    //   root: 'regeneratorRuntime',
+    //   commonjs: '@babel/runtime/regenerator',
+    //   commonjs2: '@babel/runtime/regenerator',
+    // },
+    // 'react-helmet': 'react-helmet',
   },
 
   module: {

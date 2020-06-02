@@ -1,4 +1,4 @@
-import './i18n';
+// import './i18n';
 
 import React from 'react';
 
@@ -26,7 +26,7 @@ const AppContainer = () => {
         <Provider store={store}>
           <Router>
             <Link to="/news">News</Link>
-            <ModuleLoader appConfig={AppConfig} />
+            <ModuleLoader appConfig={AppConfig} store={store} />
           </Router>
         </Provider>
       </ThemeProvider>

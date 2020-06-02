@@ -7,22 +7,26 @@ module.exports = function (webpackEnv) {
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
 
-  return merge(baseConfig, {
-    mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
+  const config = merge(baseConfig, {
+    mode: 'production',
 
     devtool: 'inline-source-map',
 
-    entry: {
-      news: paths.appSrc,
-      config: paths.appConfig,
-    },
+    entry: paths.appSrc,
 
     output: {
-      filename: '[name].js',
+      filename: 'news.js',
+      library: 'news',
+      libraryTarget: 'umd',
       globalObject: 'this',
       path: paths.appBuild,
+      publicPath: '/news',
     },
 
     // plugins: [new BundleAnalyzerPlugin()],
   });
+
+  console.log(config);
+
+  return config;
 };

@@ -1,16 +1,17 @@
 import React from 'react';
 
-import { useStore } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { renderRoutes } from 'react-router-config';
 import { withRouter } from 'react-router-dom';
 
 import { IApplicationConfig, IModule, IRoute } from '../Models';
+import { IStore } from '../store/Models';
 import injectReducer from '../store/utils/injectReducer';
 import injectSaga from '../store/utils/injectSaga';
 
 interface IOwnProps {
   appConfig: IApplicationConfig;
+  store: IStore;
 }
 
 const loadModule = (path: string): Promise<IModule> => import(/* webpackIgnore: true */ path);
@@ -18,10 +19,9 @@ const loadModule = (path: string): Promise<IModule> => import(/* webpackIgnore: 
 const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = ({
   appConfig,
   location,
+  store,
 }) => {
   const [routesConfig, setRoutes] = React.useState<IRoute[]>([]);
-
-  const store = useStore();
 
   React.useEffect(() => {
     async function load() {

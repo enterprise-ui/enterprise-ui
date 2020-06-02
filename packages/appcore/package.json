@@ -1,7 +1,7 @@
 {
   "name": "@enterprise-ui/appcore",
   "version": "0.1.0",
-  "main": "src/index.ts",
+  "main": "build/index.js",
   "types": "build/types/index.d.ts",
   "private": true,
   "scripts": {
