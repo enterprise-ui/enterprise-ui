@@ -11,7 +11,7 @@ module.exports = function (webpackEnv) {
     // mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     mode: 'production',
 
-    devtool: 'inline-source-map',
+    // devtool: 'inline-source-map',
 
     entry: paths.appSrc,
 

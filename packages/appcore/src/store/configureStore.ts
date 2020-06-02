@@ -14,7 +14,11 @@ export default (reducer: Reducer, middlewares = [], initialState: IState = {}): 
 
   const middlewaresToApply = [sagaMiddleware, thunkMiddleware, ...middlewares];
 
+  console.log('createStore start');
+
   const store: IStore = createStore(reducer, initialState, applyMiddleware(...middlewaresToApply));
+
+  console.log('createStore end');
 
   store.runSaga = sagaMiddleware.run;
   store.injectedReducers = { root: reducer };
