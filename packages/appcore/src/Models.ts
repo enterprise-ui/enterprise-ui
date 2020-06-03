@@ -4,7 +4,6 @@ import { LoadableComponent } from '@loadable/component';
 import { MatchedRoute } from 'react-router-config';
 import { RouteComponentProps, RouteProps } from 'react-router-dom';
 import { Reducer } from 'redux';
-import { Saga } from 'redux-saga';
 
 import { IStore } from './store/Models';
 
@@ -62,10 +61,4 @@ interface IModuleConfig {
 
 export interface IApplicationConfig {
   [path: string]: IModuleConfig;
-}
-
-export interface IModule {
-  reducer: Reducer;
-  routes: IRoute[];
-  saga: Saga;
 }

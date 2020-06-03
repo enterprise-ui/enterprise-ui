@@ -10,14 +10,15 @@ export const createReducer = (injectedReducers: IReducerMap = {}) =>
   });
 
 export default (reducer: Reducer, middlewares = [], initialState: IState = {}): IStore => {
+  console.log('createSagaMiddleware start');
   const sagaMiddleware = createSagaMiddleware();
+  console.log('createSagaMiddleware end');
 
   const middlewaresToApply = [sagaMiddleware, thunkMiddleware, ...middlewares];
+  console.log(middlewaresToApply);
 
   console.log('createStore start');
-
   const store: IStore = createStore(reducer, initialState, applyMiddleware(...middlewaresToApply));
-
   console.log('createStore end');
 
   store.runSaga = sagaMiddleware.run;

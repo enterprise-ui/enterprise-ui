@@ -8,6 +8,7 @@ module.exports = {
 
   externals: {
     '@enterprise-ui/appcore': 'AppCore',
+    'isomorphic-fetch': 'isomorphic-fetch',
     'react': 'React',
     'react-dom': 'ReactDOM',
     'react-redux': 'ReactRedux',
@@ -18,14 +19,11 @@ module.exports = {
     'redux-saga': 'ReduxSaga',
     'redux-saga/effects': 'ReduxSagaEffects',
     'redux-thunk': 'ReduxThunk',
-    'isomorphic-fetch': 'isomorphic-fetch',
-    'react-lazy-load-image-component': 'react-lazy-load-image-component',
     // '@babel/runtime/regenerator': {
     //   root: 'regeneratorRuntime',
     //   commonjs: '@babel/runtime/regenerator',
     //   commonjs2: '@babel/runtime/regenerator',
-    // },
-    // 'react-helmet': 'react-helmet',
+    // },ы
   },
 
   module: {

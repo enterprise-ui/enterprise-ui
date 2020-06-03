@@ -50,7 +50,6 @@ module.exports = enterprise_ui.config({
           'redux-saga/effects': 'ReduxSagaEffects',
           'redux-thunk': 'ReduxThunk',
           'isomorphic-fetch': 'isomorphic-fetch',
-          'react-lazy-load-image-component': 'react-lazy-load-image-component',
           // '@babel/runtime/regenerator': 'regeneratorRuntime',
         },
 

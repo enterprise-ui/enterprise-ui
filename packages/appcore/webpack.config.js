@@ -29,8 +29,6 @@ module.exports = function (webpackEnv) {
       'react-redux': 'ReactRedux',
       'redux': 'Redux',
       'react-router': 'ReactRouter',
-      'react-router-config': 'ReactRouterConfig',
-      'react-router-dom': 'ReactRouterDOM',
       'redux-saga': 'ReduxSaga',
       'redux-saga/effects': 'ReduxSagaEffects',
       'redux-thunk': 'ReduxThunk',

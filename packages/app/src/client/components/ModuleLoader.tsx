@@ -1,15 +1,19 @@
 import React from 'react';
 
+import {
+  IApplicationConfig,
+  injectReducer,
+  injectSaga,
+  IRoute,
+  IStore,
+} from '@enterprise-ui/appcore';
 import { RouteComponentProps } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
-import { IApplicationConfig, IRoute } from '../Models';
-import { IStore } from '../store/Models';
-import injectReducer from '../store/utils/injectReducer';
-import injectSaga from '../store/utils/injectSaga';
+import { renderRoutes } from '../renderRoutes';
 
 interface IOwnProps {
   appConfig: IApplicationConfig;
-  renderRoutes: (routes: IRoute[]) => JSX.Element,
   store: IStore;
 }
 
@@ -18,7 +22,6 @@ const loadModule = (path: string): Promise<any> => import(/* webpackIgnore: true
 const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = ({
   appConfig,
   location,
-  renderRoutes,
   store,
 }) => {
   const [routesConfig, setRoutes] = React.useState<IRoute[]>([]);
@@ -68,4 +71,6 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
 
 ModuleLoader.displayName = 'ModuleLoader';
 
-export { loadModule, ModuleLoader };
+const ModuleLoaderRouter = withRouter(ModuleLoader);
+
+export { loadModule, ModuleLoaderRouter as ModuleLoader };

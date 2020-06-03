@@ -1,6 +1,8 @@
 import { loadModule, ModuleLoader } from './components/ModuleLoader';
 import configureStore from './store/configureStore';
 import { IStore } from './store/Models';
+import injectReducer from './store/utils/injectReducer';
+import injectSaga from './store/utils/injectSaga';
 import InitialPropsDecorator from './InitialPropsDecorator';
 import {
   IApplicationConfig,
@@ -33,6 +35,8 @@ export type {
 export {
   InitialPropsDecorator,
   configureStore,
+  injectReducer,
+  injectSaga,
   loadModule,
   ModuleLoader,
   withInitialProps,
