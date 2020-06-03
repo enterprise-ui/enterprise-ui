@@ -17,8 +17,6 @@ interface IOwnProps {
   store: IStore;
 }
 
-const loadModule = (path: string): Promise<any> => import(/* webpackIgnore: true */ path);
-
 const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = ({
   appConfig,
   location,
@@ -41,8 +39,13 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
         console.log(injectedReducerKey);
         console.log(injectedSagaKey);
         console.log(publicPath);
-        console.log('load module');
-        const { reducer, routes, saga } = await loadModule(`${publicPath}/${entryName}.js`);
+        const path = `${publicPath}/${entryName}.js`;
+        console.log('load module', path);
+        const module = await import(/* webpackIgnore: true */path);
+
+        console.log(module);
+
+        const { reducer, routes, saga } = module;
 
         console.log(reducer);
         console.log(routes);
@@ -73,4 +76,4 @@ ModuleLoader.displayName = 'ModuleLoader';
 
 const ModuleLoaderRouter = withRouter(ModuleLoader);
 
-export { loadModule, ModuleLoaderRouter as ModuleLoader };
+export { ModuleLoaderRouter as ModuleLoader };

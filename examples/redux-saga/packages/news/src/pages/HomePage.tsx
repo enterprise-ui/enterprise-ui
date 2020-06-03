@@ -15,7 +15,7 @@ interface IRouteProps {
 interface IOwnProps {}
 
 interface IState {
-    currentArticle: IArticle;
+    currentArticle: IArticle | null;
     showModal: boolean;
 }
 
@@ -23,7 +23,7 @@ type TProps = IOwnProps & RouteComponentProps<IRouteProps>;
 
 @InitialPropsDecorator
 class HomePage extends React.Component<TProps, IState> {
-  static async getInitialProps({ store }) {
+  static async getInitialProps({ store }: any) {
     fetchArticles()(store.dispatch);
 
     return {};
@@ -38,7 +38,7 @@ class HomePage extends React.Component<TProps, IState> {
     window.scrollTo(0, 0);
   }
 
-  handleReadArticle = (currentArticle) => {
+  handleReadArticle = (currentArticle: IArticle) => {
     this.setState({ currentArticle, showModal: true });
   };
 
@@ -51,8 +51,8 @@ class HomePage extends React.Component<TProps, IState> {
 
     return (
       <div>
-        {showModal && (
-          <ArticleDetailModal article={currentArticle} onClose={this.handleCloseModal} />
+        {showModal && currentArticle && (
+          <ArticleDetailModal article={currentArticle as any} onClose={this.handleCloseModal} />
         )}
         <div className="row">
           <div className="section">

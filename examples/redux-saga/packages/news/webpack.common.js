@@ -23,18 +23,23 @@ module.exports = {
     //   root: 'regeneratorRuntime',
     //   commonjs: '@babel/runtime/regenerator',
     //   commonjs2: '@babel/runtime/regenerator',
-    // },ы
+    // },
   },
 
   module: {
     rules: [
+      // {
+      //   test: /\.tsx?$/,
+      //   use: 'ts-loader',
+      //   exclude: /node_modules/,
+      // },
       {
         test: /\.(js|jsx|ts|tsx)$/,
         enforce: 'pre',
         use: [
           {
             options: {
-              // cache: true,
+              cache: true,
               fix: true,
               eslintPath: require.resolve('eslint'),
               resolvePluginsRelativeTo: __dirname,

@@ -6,7 +6,7 @@ import config from '../config';
 
 import {FETCH_ARTICLES_BEGIN, FETCH_ARTICLES_FAILURE, FETCH_ARTICLES_SUCCESS} from './consts';
 
-export const fetchArticles = (source) => {
+export const fetchArticles = (source: string) => {
     let url;
 
     if (source) {
@@ -18,7 +18,7 @@ export const fetchArticles = (source) => {
     return fetch(url).then((response) => response.json().then((json) => json));
 };
 
-function* getArticles(action) {
+function* getArticles(action: any) {
     try {
         const data = yield call(fetchArticles, action.payload);
 

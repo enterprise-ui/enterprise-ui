@@ -1,3 +1,5 @@
+/* eslint-disable no-script-url */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 
 import {LazyLoadImage} from 'react-lazy-load-image-component';
@@ -37,7 +39,7 @@ const Articles: React.FunctionComponent<TProps> = ({articles = [], onReadArticle
     </React.Fragment>
 );
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
     return {
         articles: state.domainExampleApp.articles,
     };

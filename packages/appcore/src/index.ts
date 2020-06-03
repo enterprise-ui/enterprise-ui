@@ -1,4 +1,3 @@
-import { loadModule, ModuleLoader } from './components/ModuleLoader';
 import configureStore from './store/configureStore';
 import { IStore } from './store/Models';
 import injectReducer from './store/utils/injectReducer';
@@ -37,7 +36,5 @@ export {
   configureStore,
   injectReducer,
   injectSaga,
-  loadModule,
-  ModuleLoader,
   withInitialProps,
 };

@@ -10,7 +10,7 @@ module.exports = function (webpackEnv) {
   const config = merge(baseConfig, {
     mode: 'production',
 
-    devtool: 'inline-source-map',
+    // devtool: 'inline-source-map',
 
     entry: paths.appSrc,
 
@@ -18,7 +18,7 @@ module.exports = function (webpackEnv) {
       filename: 'news.js',
       library: 'news',
       libraryTarget: 'umd',
-      globalObject: 'this',
+      // globalObject: 'this',
       path: paths.appBuild,
       publicPath: '/news',
     },

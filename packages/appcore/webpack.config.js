@@ -17,7 +17,7 @@ module.exports = function (webpackEnv) {
 
     output: {
       filename: 'index.js',
-      globalObject: 'this',
+      // globalObject: 'this',
       library: 'AppCore',
       libraryTarget: 'umd',
       path: paths.appBuild,
@@ -28,7 +28,6 @@ module.exports = function (webpackEnv) {
       'react-dom': 'ReactDOM',
       'react-redux': 'ReactRedux',
       'redux': 'Redux',
-      'react-router': 'ReactRouter',
       'redux-saga': 'ReduxSaga',
       'redux-saga/effects': 'ReduxSagaEffects',
       'redux-thunk': 'ReduxThunk',

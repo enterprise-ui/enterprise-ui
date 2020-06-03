@@ -16,7 +16,7 @@ interface IOwnProps {}
 
 interface IState {
     articles: IArticle[];
-    currentArticle: IArticle;
+    currentArticle: IArticle | null;
     showModal: boolean;
 }
 
@@ -24,13 +24,13 @@ type TProps = IOwnProps & RouteComponentProps<IRouteProps>;
 
 @InitialPropsDecorator
 class ArticleListPage extends React.Component<TProps, IState> {
-  static async getInitialProps({ store, props }) {
+  static async getInitialProps({ store, props }: any) {
     fetchArticles(props.match.params.id)(store.dispatch);
 
     return {};
   }
 
-  state = {
+  state: IState = {
     articles: [],
     currentArticle: null,
     showModal: false,
@@ -40,7 +40,7 @@ class ArticleListPage extends React.Component<TProps, IState> {
     window.scrollTo(0, 0);
   }
 
-  handleReadArticle = (currentArticle) => {
+  handleReadArticle = (currentArticle: IArticle) => {
     this.setState({ currentArticle, showModal: true });
   };
 
@@ -54,7 +54,7 @@ class ArticleListPage extends React.Component<TProps, IState> {
 
     return (
       <div>
-        {showModal && (
+        {showModal && currentArticle && (
           <ArticleDetailModal article={currentArticle} onClose={this.handleCloseModal} />
         )}
         <div className="row">
