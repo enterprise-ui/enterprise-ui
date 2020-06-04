@@ -34,18 +34,16 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
 
       if (target) {
         console.log('unpackage config');
-        const { entryName, injectedReducerKey, injectedSagaKey, publicPath } = target;
+        const { entryName, injectedReducerKey, injectedSagaKey, moduleName, publicPath } = target;
         console.log(entryName);
         console.log(injectedReducerKey);
         console.log(injectedSagaKey);
         console.log(publicPath);
         const path = `${publicPath}/${entryName}.js`;
         console.log('load module', path);
-        const module = await import(/* webpackIgnore: true */path);
+        await import(/* webpackIgnore: true */ path);
 
-        console.log(module);
-
-        const { reducer, routes, saga } = module;
+        const { reducer, routes, saga } = (window as any)[moduleName];
 
         console.log(reducer);
         console.log(routes);

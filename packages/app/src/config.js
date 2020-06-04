@@ -3,7 +3,7 @@ module.exports = {
     entryName: 'news',
     injectedReducerKey: 'news',
     injectedSagaKey: 'news',
-    moduleName: '@enterprise-ui/news',
+    moduleName: 'news',
     publicPath: '/news',
   },
 };

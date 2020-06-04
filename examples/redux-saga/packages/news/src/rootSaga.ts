@@ -32,4 +32,6 @@ function* rootSaga() {
     yield takeEvery(FETCH_ARTICLES_BEGIN, getArticles);
 }
 
+console.log('Saga is initialized');
+
 export {rootSaga};

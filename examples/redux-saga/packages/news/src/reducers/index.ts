@@ -6,4 +6,6 @@ const reducers = combineReducers({
     articles: reducer,
 });
 
+console.log('Reducers is initialized');
+
 export {reducers};

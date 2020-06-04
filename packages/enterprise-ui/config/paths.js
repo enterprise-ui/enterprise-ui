@@ -5,7 +5,7 @@ const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
 
 module.exports = {
-  appBuild: resolveApp('build/public/'),
+  appBuild: resolveApp('build/public'),
   appConfig: resolveApp('./enterprise-ui.config'),
   appHtml: resolveApp('public/index.html'),
   appPackageJson: resolveApp('package.json'),

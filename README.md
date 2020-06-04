@@ -3,10 +3,13 @@ Enterprise-UI
 
 
 ```
-yarn
-cd examples/mvc-mobx/packages/main
-yarn build
-cd examples/mvc-mobx/packages/app
-yarn develop
-open localhost:3000
+$ yarn global add serve
+$ yarn intsall
+$ cd packages/appcore
+$ yarn build
+$ cd examples/redux-saga/packages/news
+$ yarn build
+$ cd packages/app
+$ yarn build
+$ yarn start:spa
 ```
