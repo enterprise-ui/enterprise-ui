@@ -13,12 +13,12 @@ const spawn = require('react-dev-utils/crossSpawn');
 const args = process.argv.slice(2);
 
 const scriptIndex = args.findIndex(
-  x => x === 'develop' || x === 'build' || x === 'start' || x === 'startssr' || x === 'test' || x === 'gen'
+  x => x === 'develop' || x === 'build' || x === 'buildssr' || x === 'start' || x === 'startssr' || x === 'test' || x === 'gen'
 );
 const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
 
-if (['develop', 'build', 'start', 'startssr', 'test', 'gen'].includes(script)) {
+if (['develop', 'build', 'buildssr', 'start', 'startssr', 'test', 'gen'].includes(script)) {
   const result = spawn.sync(
     // require.resolve('../node_modules/.bin/ts-node'),
     'node',

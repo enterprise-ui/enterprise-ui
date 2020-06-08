@@ -6,33 +6,27 @@ module.exports = {
     modules: ['node_modules'],
   },
 
-  externals: {
-    '@enterprise-ui/appcore': 'AppCore',
-    'isomorphic-fetch': 'isomorphic-fetch',
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'react-redux': 'ReactRedux',
-    'redux': 'Redux',
-    'react-router': 'ReactRouter',
-    'react-router-config': 'ReactRouterConfig',
-    'react-router-dom': 'ReactRouterDOM',
-    'redux-saga': 'ReduxSaga',
-    'redux-saga/effects': 'ReduxSagaEffects',
-    'redux-thunk': 'ReduxThunk',
-    // '@babel/runtime/regenerator': {
-    //   root: 'regeneratorRuntime',
-    //   commonjs: '@babel/runtime/regenerator',
-    //   commonjs2: '@babel/runtime/regenerator',
-    // },
-  },
+  // externals: {
+  //   '@enterprise-ui/appcore': 'AppCore',
+  //   'react': 'React',
+  //   'react-dom': 'ReactDOM',
+  //   'react-redux': 'ReactRedux',
+  //   'redux': 'Redux',
+  //   'react-router': 'ReactRouter',
+  //   'react-router-config': 'ReactRouterConfig',
+  //   'react-router-dom': 'ReactRouterDOM',
+  //   'redux-saga': 'ReduxSaga',
+  //   'redux-saga/effects': 'ReduxSagaEffects',
+  //   'redux-thunk': 'ReduxThunk',
+  //   // '@babel/runtime/regenerator': {
+  //   //   root: 'regeneratorRuntime',
+  //   //   commonjs: '@babel/runtime/regenerator',
+  //   //   commonjs2: '@babel/runtime/regenerator',
+  //   // },
+  // },
 
   module: {
     rules: [
-      // {
-      //   test: /\.tsx?$/,
-      //   use: 'ts-loader',
-      //   exclude: /node_modules/,
-      // },
       {
         test: /\.(js|jsx|ts|tsx)$/,
         enforce: 'pre',

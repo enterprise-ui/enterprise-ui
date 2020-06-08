@@ -8,6 +8,8 @@ const moduleFileExtensions = ['js', 'ts', 'tsx', 'json', 'jsx'];
 
 module.exports = {
   appBuild: resolveApp('build'),
+  appNodeModules: resolveApp('../../node_modules'),
   appSrc: resolveApp('src'),
   moduleFileExtensions,
+  packageNodeModules: resolveApp('./node_modules'),
 };

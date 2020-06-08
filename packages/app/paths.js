@@ -6,7 +6,7 @@ const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
 
 const moduleFileExtensions = ['js', 'ts', 'tsx', 'json', 'jsx'];
-const packageDependencies = ['appcore'].map((p) => resolveApp(`../${p}/build`));
+const packageDependencies = [].map((p) => resolveApp(`../${p}/build`));
 
 const publicUrlOrPath = getPublicUrlOrPath(
   process.env.NODE_ENV === 'development',
@@ -17,8 +17,11 @@ const publicUrlOrPath = getPublicUrlOrPath(
 module.exports = {
   appBuild: resolveApp('build'),
   appHtml: resolveApp('public/index.html'),
-  appSrc: resolveApp('src/client'),
+  appNodeModules: resolveApp('../../node_modules'),
+  appSrcClient: resolveApp('src/client'),
+  appSrcServer: resolveApp('src/server'),
   moduleFileExtensions,
   packageDependencies,
+  packageNodeModules: resolveApp('./node_modules'),
   publicUrlOrPath,
 };

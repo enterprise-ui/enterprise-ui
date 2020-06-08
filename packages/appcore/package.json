@@ -5,7 +5,8 @@
   "types": "build/types/index.d.ts",
   "private": true,
   "scripts": {
-    "build": "webpack --mode production && yarn gen",
+    "app:build": "webpack --mode production && yarn gen",
+    "app:buildssr": "webpack --mode production --config ./webpack.node.config.js",
     "gen": "tsc --emitDeclarationOnly"
   },
   "peerDependencies": {

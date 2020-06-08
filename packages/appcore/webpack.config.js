@@ -17,25 +17,9 @@ module.exports = function (webpackEnv) {
 
     output: {
       filename: 'index.js',
-      // globalObject: 'this',
       library: 'AppCore',
       libraryTarget: 'umd',
       path: paths.appBuild,
-    },
-
-    externals: {
-      'react': 'React',
-      'react-dom': 'ReactDOM',
-      'react-redux': 'ReactRedux',
-      'redux': 'Redux',
-      'redux-saga': 'ReduxSaga',
-      'redux-saga/effects': 'ReduxSagaEffects',
-      'redux-thunk': 'ReduxThunk',
-      // '@babel/runtime/regenerator': {
-      //   root: 'regeneratorRuntime',
-      //   commonjs: '@babel/runtime/regenerator',
-      //   commonjs2: '@babel/runtime/regenerator',
-      // },
     },
 
     // plugins: [new BundleAnalyzerPlugin()],

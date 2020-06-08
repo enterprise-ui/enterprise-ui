@@ -1,14 +1,14 @@
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const merge = require('webpack-merge');
 const paths = require('./paths');
 const baseConfig = require('./webpack.common');
 
-module.exports = function (webpackEnv) {
-  const isEnvDevelopment = webpackEnv === 'development';
-  const isEnvProduction = webpackEnv === 'production';
+module.exports = function () {
+  console.log('paths', paths);
 
   const config = merge(baseConfig, {
     mode: 'production',
+
+    target: 'node',
 
     devtool: 'inline-source-map',
 
@@ -16,13 +16,12 @@ module.exports = function (webpackEnv) {
 
     output: {
       filename: 'news.js',
+      globalObject: 'this',
       library: 'news',
       libraryTarget: 'umd',
       path: paths.appBuild,
       publicPath: '/news',
     },
-
-    // plugins: [new BundleAnalyzerPlugin()],
   });
 
   console.log(config);

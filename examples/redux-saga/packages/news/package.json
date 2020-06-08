@@ -5,11 +5,11 @@
   "mainsrc": "src/index.ts",
   "private": true,
   "scripts": {
-    "build": "webpack --mode production"
+    "app:build": "webpack --mode production",
+    "app:buildssr": "webpack --mode production --config ./webpack.node.config.js"
   },
   "peerDependencies": {
     "@enterprise-ui/appcore": "0.1.0",
-    "isomorphic-fetch": "^2.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.3",
+    "isomorphic-fetch": "^2.2.1",
     "lodash": "4.17.15",
     "react-lazy-load-image-component": "1.4.1"
   },
