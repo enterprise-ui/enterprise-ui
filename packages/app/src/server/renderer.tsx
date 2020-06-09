@@ -70,7 +70,7 @@ export default (
                     )}
                     window.__SSR_DATA__ = ${JSON.stringify(staticProps || {})}
                 </script>
-                <script src="/public/main.819aede80f8bc7a100de.bundle.js"></script>
+                <script src="/public/main.bundle.js"></script>
             </body>
     </html>`;
   } catch (error) {

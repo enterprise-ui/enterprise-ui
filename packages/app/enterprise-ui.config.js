@@ -28,8 +28,8 @@ module.exports = enterprise_ui.config({
         entry: paths.appSrcClient,
 
         output: {
-          filename: '[name].[hash].bundle.js',
-          chunkFilename: '[name].[chunkhash].chunk.js',
+          filename: '[name].bundle.js',
+          chunkFilename: '[name].chunk.js',
           path: path.join(paths.appBuild, 'public'),
           publicPath: paths.publicUrlOrPath,
         },

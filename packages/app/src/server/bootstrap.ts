@@ -9,6 +9,7 @@ import { LoadableComponent } from '@loadable/component';
 import compression from 'compression';
 import express, { NextFunction, Request, Response } from 'express';
 import i18nmiddleware from 'i18next-express-middleware';
+import * as path from 'path';
 import { StaticRouterContext } from 'react-router';
 import { matchRoutes } from 'react-router-config';
 
@@ -123,10 +124,7 @@ export function bootstrap(options: ISSROptions) {
     }),
   );
 
-  const port = process.env.PORT || 5001;
-
-  // app.use(express.static('public', { index: false }));
-  app.use('/public', express.static('public'));
+  app.use(express.static('build', { index: false }));
 
   app.get(routes, handleRequest);
 
@@ -147,6 +145,8 @@ export function bootstrap(options: ISSROptions) {
     if (err) {
       throw new Error(err);
     }
+
+    const port = process.env.PORT || 5001;
 
     app.listen(port, () => {
       console.log(`Listening on port: ${port}`);
