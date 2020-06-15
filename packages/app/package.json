@@ -5,11 +5,8 @@
   "private": true,
   "scripts": {
     "app:build": "enterprise-ui build",
-    "app:buildssr": "enterprise-ui build && enterprise-ui buildssr",
-    "develop": "enterprise-ui develop",
-    "start:spa": "enterprise-ui start",
-    "start:ssr": "enterprise-ui startssr",
-    "start:node": "ts-node src/server/index.ts"
+    "app:develop": "enterprise-ui develop",
+    "app:start": "enterprise-ui start"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.10.1",

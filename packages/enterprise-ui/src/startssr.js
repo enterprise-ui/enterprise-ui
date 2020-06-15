@@ -1,1 +1,1 @@
-require('@enterprise-ui/app').run();
+console.log('Enterprise-UI startsst is not implemented')

@@ -1,4 +1,3 @@
-// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const merge = require('webpack-merge');
 const paths = require('./paths');
 const baseConfig = require('./webpack.common');
@@ -11,8 +10,6 @@ module.exports = function (webpackEnv) {
     // mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
     mode: 'production',
 
-    // devtool: 'inline-source-map',
-
     entry: paths.appSrc,
 
     output: {
@@ -21,7 +18,5 @@ module.exports = function (webpackEnv) {
       libraryTarget: 'umd',
       path: paths.appBuild,
     },
-
-    // plugins: [new BundleAnalyzerPlugin()],
   });
 };
