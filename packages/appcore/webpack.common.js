@@ -6,20 +6,20 @@ module.exports = {
     modules: ['node_modules'],
   },
 
-  // externals: {
-  //   'react': 'React',
-  //   'react-dom': 'ReactDOM',
-  //   'react-redux': 'ReactRedux',
-  //   'redux': 'Redux',
-  //   'redux-saga': 'ReduxSaga',
-  //   'redux-saga/effects': 'ReduxSagaEffects',
-  //   'redux-thunk': 'ReduxThunk',
-  //   // '@babel/runtime/regenerator': {
-  //   //   root: 'regeneratorRuntime',
-  //   //   commonjs: '@babel/runtime/regenerator',
-  //   //   commonjs2: '@babel/runtime/regenerator',
-  //   // },
-  // },
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    'react-redux': 'ReactRedux',
+    'redux': 'Redux',
+    'redux-saga': 'ReduxSaga',
+    'redux-saga/effects': 'ReduxSagaEffects',
+    'redux-thunk': 'ReduxThunk',
+    // '@babel/runtime/regenerator': {
+    //   root: 'regeneratorRuntime',
+    //   commonjs: '@babel/runtime/regenerator',
+    //   commonjs2: '@babel/runtime/regenerator',
+    // },
+  },
 
   module: {
     rules: [

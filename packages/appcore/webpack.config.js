@@ -17,6 +17,7 @@ module.exports = function (webpackEnv) {
 
     output: {
       filename: 'index.js',
+      globalObject: 'this',
       library: 'AppCore',
       libraryTarget: 'umd',
       path: paths.appBuild,

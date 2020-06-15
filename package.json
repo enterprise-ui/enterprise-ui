@@ -11,7 +11,7 @@
     "preinstall1": "node ./tools/preinstall.js",
     "cmd": "enterprise-ui develop",
     "build": "lerna run app:build",
-    "build:ssr": "lerna run app:buildssr",
+    "build:ssr": "lerna run app:buildssr --stream",
     "start:ssr": "lerna run start:ssr --stream",
     "ci:app:tags": "node packages/app/ci/tags.js",
     "ci:storybook:tags": "node packages/storybook/ci/tags.js",

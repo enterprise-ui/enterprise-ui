@@ -16,6 +16,7 @@ module.exports = function (webpackEnv) {
 
     output: {
       filename: 'news.js',
+      globalObject: 'this',
       library: 'news',
       libraryTarget: 'umd',
       path: paths.appBuild,

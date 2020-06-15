@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "app:build": "webpack --mode production",
-    "app:buildssr": "webpack --mode production --config ./webpack.node.config.js"
+    "app:buildssr": "webpack --mode production"
   },
   "peerDependencies": {
     "@enterprise-ui/appcore": "0.1.0",

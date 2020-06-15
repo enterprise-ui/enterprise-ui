@@ -8,7 +8,7 @@
     "app:buildssr": "enterprise-ui build && enterprise-ui buildssr",
     "develop": "enterprise-ui develop",
     "start:spa": "enterprise-ui start",
-    "start:ssr": "enterprise-ui startssr",
+    "start:ssr": "node build/www.js",
     "start:node": "ts-node src/server/index.ts"
   },
   "devDependencies": {

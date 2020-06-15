@@ -150,7 +150,7 @@ module.exports = enterprise_ui.config({
   webpackNodeConfig: {
     configure: () => {
       const externals = {
-        '@enterprise-ui/appcore': 'AppCore',
+        //'@enterprise-ui/appcore': 'AppCore',
         'react': 'React',
         'react-dom': 'ReactDOM',
         'react-redux': 'ReactRedux',
@@ -164,22 +164,24 @@ module.exports = enterprise_ui.config({
       };
 
       const nodeExternalsOptions = {
-        whitelist: [...Object.keys(externals)],
+        whitelist: ['@enterprise-ui/appcore', ...Object.keys(externals)],
       };
+
+      console.log(paths.packageDependencies);
 
       const config = {
         mode: 'production',
 
         target: 'node',
 
-        devtool: 'inline-source-map',
+        // devtool: 'inline-source-map',
 
         entry: paths.appSrcServer,
 
         output: {
           filename: 'www.js',
-          globalObject: 'this',
-          libraryTarget: 'commonjs',
+          library: 'ssr',
+          libraryTarget: 'var',
           path: path.join(paths.appBuild),
           publicPath: paths.publicUrlOrPath,
         },
@@ -189,17 +191,17 @@ module.exports = enterprise_ui.config({
           modules: ['node_modules'],
         },
 
-        // externals: [
-        //   {...externals},
-        //   nodeExternals({
-        //     modulesDir: paths.packageNodeModules,
-        //     ...nodeExternalsOptions,
-        //   }),
-        //   nodeExternals({
-        //     modulesDir: paths.appNodeModules,
-        //     ...nodeExternalsOptions,
-        //   }),
-        // ],
+        externals: [
+          {...externals},
+          nodeExternals({
+            modulesDir: paths.packageNodeModules,
+            ...nodeExternalsOptions,
+          }),
+          nodeExternals({
+            modulesDir: paths.appNodeModules,
+            ...nodeExternalsOptions,
+          }),
+        ],
 
         plugins: [
           new CopyPlugin({
