@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
   IApplicationConfig,
+  IModule,
   injectReducer,
   injectSaga,
   IRoute,
@@ -34,20 +35,21 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
 
       if (target) {
         console.log('unpackage config');
-        const { entryName, injectedReducerKey, injectedSagaKey, moduleName, publicPath } = target;
-        console.log(entryName);
-        console.log(injectedReducerKey);
-        console.log(injectedSagaKey);
-        console.log(publicPath);
-        const path = `${publicPath}/${entryName}.js`;
-        console.log('load module', path);
-        await import(/* webpackIgnore: true */ path);
+        const { injectedReducerKey, injectedSagaKey, loadModule, loadStatic, moduleName } = target;
+        let module: IModule;
 
-        const { reducer, routes, saga } = (window as any)[moduleName];
+        if (DEV_SERVER_MODE) {
+          module = await loadModule();
+        } else {
+          await loadStatic();
+          module = window[moduleName];
+        }
 
-        console.log(reducer);
-        console.log(routes);
-        console.log(saga);
+        const { reducer, routes, saga } = module;
+
+        console.log('reducer', reducer);
+        console.log('routes', routes);
+        console.log('saga', saga);
 
         console.log('inject reducer');
         injectReducer(store, injectedReducerKey, reducer);

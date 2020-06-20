@@ -9,8 +9,10 @@ const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const printBuildError = require('react-dev-utils/printBuildError');
 const printHostingInstructions = require('react-dev-utils/printHostingInstructions');
-const paths = require('../config/paths');
+const rootPaths = require('../config/paths');
 const webpack = require('webpack');
+
+const { configFactory, paths } = require(rootPaths.appConfig);
 
 const measureFileSizesBeforeBuild = FileSizeReporter.measureFileSizesBeforeBuild;
 const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild;
@@ -24,11 +26,9 @@ const isInteractive = process.stdout.isTTY;
 const argv = process.argv.slice(2);
 const writeStatsJson = argv.indexOf('--stats') !== -1;
 
-const { webpackClientConfig } = require(paths.appConfig);
+const webpackConfig = configFactory.configure('production');
 
-const webpackConfig = webpackClientConfig.configure(process.env.NODE_ENV);
-
-checkBrowsers(paths.appPath, isInteractive)
+checkBrowsers(rootPaths.appPath, isInteractive)
   .then(() => {
     // First, read the current file sizes in build directory.
     // This lets us display how much they changed later.

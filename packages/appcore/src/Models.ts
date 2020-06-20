@@ -4,6 +4,7 @@ import { LoadableComponent } from '@loadable/component';
 import { MatchedRoute } from 'react-router-config';
 import { RouteComponentProps, RouteProps } from 'react-router-dom';
 import { Reducer } from 'redux';
+import { Saga } from 'redux-saga';
 
 import { IStore } from './store/Models';
 
@@ -51,12 +52,18 @@ export interface IPackageReducerConfig {
   [packageId: string]: Reducer;
 }
 
+export interface IModule {
+  reducer: Reducer;
+  routes: IRoute[];
+  saga: Saga;
+}
+
 interface IModuleConfig {
-  entryName: string;
   injectedReducerKey: string;
   injectedSagaKey: string;
+  loadModule: () => Promise<IModule>;
+  loadStatic: () => Promise<IModule>;
   moduleName: string;
-  publicPath: string;
 }
 
 export interface IApplicationConfig {
