@@ -55,6 +55,10 @@ module.exports = (webpackEnv, isDevServerMode = false, workspaces = []) => {
     },
 
     resolve: {
+      alias: isDevServerMode ? {
+        '@enterprise-ui/appcore': '@enterprise-ui/appcore/src/index.ts',
+        '@enterprise-ui/news': '@enterprise-ui/news/src/index.ts'
+      } : {},
       extensions: paths.moduleFileExtensions.map((ext) => `.${ext}`),
       modules: ['node_modules'],
     },
@@ -86,7 +90,7 @@ module.exports = (webpackEnv, isDevServerMode = false, workspaces = []) => {
         ),
       ),
       shouldInlineRuntimeChunk && new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime-.+[.]js/]),
-      new InterpolateHtmlPlugin(HtmlWebpackPlugin, {...env.raw, SCRIPTS: scripts}),
+      new InterpolateHtmlPlugin(HtmlWebpackPlugin, {...env.raw, SCRIPTS: scripts.join('')}),
       new LoadablePlugin(),
       new CopyPlugin({
         patterns: [
