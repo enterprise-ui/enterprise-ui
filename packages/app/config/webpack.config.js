@@ -17,7 +17,6 @@ module.exports = (webpackEnv, isDevServerMode = false, workspaces = []) => {
 
   console.log('webpackEnv', webpackEnv);
   console.log('isDevServerMode', isDevServerMode);
-  console.log('workspaces', workspaces);
   console.log('paths', paths);
 
   let externals = {
@@ -30,13 +29,13 @@ module.exports = (webpackEnv, isDevServerMode = false, workspaces = []) => {
     'react-router-dom': 'ReactRouterDOM',
     'redux-saga': 'ReduxSaga',
     'redux-saga/effects': 'ReduxSagaEffects',
-    'redux-thunk': 'ReduxThunk'
+    'redux-thunk': 'ReduxThunk',
   };
 
   const scripts = ['<script crossorigin src="/vendors/vendors.production.min.js"></script>'];
 
   if (!isDevServerMode) {
-    externals = {...externals, '@enterprise-ui/appcore': 'AppCore'};
+    externals = { ...externals, '@enterprise-ui/appcore': 'AppCore' };
     scripts.push('<script crossorigin src="/core/appcore.production.min.js"></script>');
   }
 
@@ -55,10 +54,18 @@ module.exports = (webpackEnv, isDevServerMode = false, workspaces = []) => {
     },
 
     resolve: {
-      alias: isDevServerMode ? {
-        '@enterprise-ui/appcore': '@enterprise-ui/appcore/src/index.ts',
-        '@enterprise-ui/news': '@enterprise-ui/news/src/index.ts'
-      } : {},
+      alias: isDevServerMode
+        ? {
+            '@enterprise-ui/appcore': '@enterprise-ui/appcore/src/index.ts',
+            ...workspaces.reduce(
+              (acc, w) => ({
+                ...acc,
+                [w.name]: path.join(w.packagePath, w.mainsrc),
+              }),
+              {},
+            ),
+          }
+        : {},
       extensions: paths.moduleFileExtensions.map((ext) => `.${ext}`),
       modules: ['node_modules'],
     },
@@ -90,23 +97,22 @@ module.exports = (webpackEnv, isDevServerMode = false, workspaces = []) => {
         ),
       ),
       shouldInlineRuntimeChunk && new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime-.+[.]js/]),
-      new InterpolateHtmlPlugin(HtmlWebpackPlugin, {...env.raw, SCRIPTS: scripts.join('')}),
+      new InterpolateHtmlPlugin(HtmlWebpackPlugin, { ...env.raw, SCRIPTS: scripts.join('') }),
       new LoadablePlugin(),
-      new CopyPlugin({
-        patterns: [
-          {
-            from: path.dirname(require.resolve('@enterprise-ui/news')),
-            to: path.join(paths.appBuild, 'news'),
+      !isDevServerMode &&
+        new CopyPlugin({
+          patterns: workspaces.map((w) => ({
+            from: path.dirname(require.resolve(w.name)),
+            to: path.join(paths.appBuild, w.module),
+          })),
+          options: {
+            concurrency: 100,
           },
-        ],
-        options: {
-          concurrency: 100,
-        },
-      }),
+        }),
       new webpack.DefinePlugin({
         DEV_SERVER_MODE: JSON.stringify(isDevServerMode),
       }),
-    ],
+    ].filter((plugin) => plugin),
 
     module: {
       rules: [
@@ -128,7 +134,15 @@ module.exports = (webpackEnv, isDevServerMode = false, workspaces = []) => {
         },
         {
           test: /\.(js|jsx|ts|tsx)$/,
-          include: [paths.appSrcClient, ...(isDevServerMode ? paths.platformDependencies : []), ...workspaces],
+          include: [
+            paths.appSrcClient,
+            ...(isDevServerMode
+              ? [
+                  ...paths.platformDependencies,
+                  ...workspaces.map((w) => path.join(w.packagePath, 'src')),
+                ]
+              : []),
+          ],
           loader: require.resolve('babel-loader'),
           options: {
             babelrc: false,

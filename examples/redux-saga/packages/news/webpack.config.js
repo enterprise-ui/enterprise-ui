@@ -14,7 +14,7 @@ module.exports = function (webpackEnv) {
     entry: paths.appSrc,
 
     output: {
-      filename: 'news.js',
+      filename: 'bundle.js',
       library: 'news',
       libraryTarget: 'umd',
       path: paths.appBuild,

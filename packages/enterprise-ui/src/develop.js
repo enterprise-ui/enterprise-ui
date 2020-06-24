@@ -68,27 +68,16 @@ checkBrowsers(rootPaths.appPath, isInteractive)
     }
 
     const workspaces = getWorkspaces(paths.rootPackageJson, ['packages/*']);
-    console.log('workspaces', workspaces);
     const config = configFactory.configure('development', true, workspaces);
     const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
     const appName = require(paths.appPackageJson).name;
     const useTypeScript = fs.existsSync(paths.appTsConfig);
     const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true';
-    console.log('protocol', protocol);
-    console.log('HOST', HOST);
-    console.log('port', port);
     const urls = prepareUrls(protocol, HOST, port, paths.publicUrlOrPath.slice(0, -1));
     const devSocket = {
       warnings: (warnings) => devServer.sockWrite(devServer.sockets, 'warnings', warnings),
       errors: (errors) => devServer.sockWrite(devServer.sockets, 'errors', errors),
     };
-
-    console.log('appName', appName);
-    console.log('devSocket', devSocket);
-    console.log('urls', urls);
-    console.log('useYarn', useYarn);
-    console.log('useTypeScript', useTypeScript);
-    console.log('tscCompileOnError', tscCompileOnError);
 
     const compiler = createCompiler({
       appName,

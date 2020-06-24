@@ -9,6 +9,7 @@ const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const printBuildError = require('react-dev-utils/printBuildError');
 const printHostingInstructions = require('react-dev-utils/printHostingInstructions');
+const getWorkspaces = require('../config/getWorkspaces');
 const rootPaths = require('../config/paths');
 const webpack = require('webpack');
 
@@ -26,7 +27,9 @@ const isInteractive = process.stdout.isTTY;
 const argv = process.argv.slice(2);
 const writeStatsJson = argv.indexOf('--stats') !== -1;
 
-const webpackConfig = configFactory.configure('production');
+const workspaces = getWorkspaces(paths.rootPackageJson, ['packages/*']);
+
+const webpackConfig = configFactory.configure('production', false, workspaces);
 
 checkBrowsers(rootPaths.appPath, isInteractive)
   .then(() => {

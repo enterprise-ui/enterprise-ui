@@ -1,8 +1,9 @@
 {
   "name": "@enterprise-ui/news",
   "version": "0.1.0",
-  "main": "build/news.js",
+  "main": "build/bundle.js",
   "mainsrc": "src/index.ts",
+  "module": "news",
   "private": true,
   "scripts": {
     "app:build": "webpack --mode production"
