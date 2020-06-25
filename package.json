@@ -12,6 +12,7 @@
     "cmd": "enterprise-ui develop",
     "build": "lerna run app:build",
     "develop": "lerna run app:develop --stream",
+    "gen": "lerna run app:gen --stream",
     "start": "lerna run app:start --stream",
     "ci:app:tags": "node packages/app/ci/tags.js",
     "ci:storybook:tags": "node packages/storybook/ci/tags.js",

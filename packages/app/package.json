@@ -4,8 +4,9 @@
   "main": "build/www.js",
   "private": true,
   "scripts": {
-    "app:build": "enterprise-ui build",
-    "app:develop": "enterprise-ui develop",
+    "app:build": "yarn app:gen && enterprise-ui build",
+    "app:develop": "yarn app:gen && enterprise-ui develop",
+    "app:gen": "enterprise-ui gen",
     "app:start": "enterprise-ui start"
   },
   "devDependencies": {

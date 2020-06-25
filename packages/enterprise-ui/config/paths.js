@@ -9,4 +9,5 @@ module.exports = {
   appConfig: resolveApp('./enterprise-ui.config'),
   appBuild: resolveApp('build/public'),
   appPath: resolveApp('.'),
+  rootPackageJson: resolveApp('../../package.json'),
 };

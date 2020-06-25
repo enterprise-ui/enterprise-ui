@@ -9,6 +9,5 @@ module.exports = enterprise_ui.config({
   createDevServerConfig: {
     configure: (proxy, allowedHost) => getWebpackDevServerConfig(proxy, allowedHost),
   },
-  modules: require('./src/config'),
   paths: require('./config/paths'),
 });

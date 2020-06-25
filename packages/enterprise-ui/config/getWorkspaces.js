@@ -47,7 +47,5 @@ module.exports = function getWorkspaces(from, excludes = []) {
     }),
   );
 
-  console.log('workspaces', workspaces);
-
   return workspaces;
 };

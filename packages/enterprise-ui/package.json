@@ -38,7 +38,8 @@
     "ts-node": "^8.10.1",
     "typescript": "^3.8.3",
     "webpack-node-externals": "1.7.2",
-    "yargs": "15.3.1"
+    "yargs": "15.3.1",
+    "yeoman-environment": "^2.10.3"
   },
   "scripts": {
     "developtest": "enterprise-ui develop"

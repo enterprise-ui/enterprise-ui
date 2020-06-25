@@ -32,6 +32,7 @@ module.exports = {
   appNodeModules: resolveApp('../../node_modules'),
   appPackageJson: resolveApp('package.json'),
   appPublic: resolveApp('public'),
+  appSrc: resolveApp('src'),
   appSrcClient: resolveApp('src/client'),
   appSrcServer: resolveApp('src/server'),
   appTsConfig: resolveApp('tsconfig.json'),
