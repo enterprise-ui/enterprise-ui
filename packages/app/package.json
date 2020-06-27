@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "app:build": "yarn app:gen && enterprise-ui build",
-    "app:develop": "yarn app:gen && enterprise-ui develop",
-    "app:gen": "enterprise-ui gen",
+    "app:develop": "enterprise-ui gen --mode development && enterprise-ui develop",
+    "app:gen": "enterprise-ui gen --mode production",
     "app:start": "enterprise-ui start"
   },
   "devDependencies": {
