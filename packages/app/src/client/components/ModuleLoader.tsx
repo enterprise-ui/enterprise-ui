@@ -28,8 +28,9 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
   React.useEffect(() => {
     async function load() {
       console.log('load config');
+      const path = location.pathname.replace(/\/+$/, '');
 
-      const target = appConfig[location.pathname];
+      const target = appConfig[path];
 
       console.log(target);
 

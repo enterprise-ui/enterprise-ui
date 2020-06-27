@@ -5,7 +5,6 @@ Enterprise-UI
 
 Install dependencies:
 ```
-$ yarn global add serve
 $ yarn global add lerna
 $ yarn install
 ```
