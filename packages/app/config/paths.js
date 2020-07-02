@@ -17,8 +17,6 @@ const resolveModule = (resolveFn, filePath) => {
   return resolveFn(`${filePath}.js`);
 };
 
-const platformDependencies = ['appcore'].map((p) => resolveApp(`../${p}/src`));
-
 const publicUrlOrPath = getPublicUrlOrPath(
   process.env.NODE_ENV === 'development',
   require(resolveApp('package.json')).homepage,
@@ -39,7 +37,6 @@ module.exports = {
   dotenv: resolveApp('.env'),
   moduleFileExtensions,
   packageNodeModules: resolveApp('./node_modules'),
-  platformDependencies,
   publicUrlOrPath,
   rootPackageJson: resolveApp('../../package.json'),
   yarnLockFile: resolveApp('../../yarn.lock'),

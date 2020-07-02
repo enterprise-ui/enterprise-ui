@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const getClientEnvironment = require('react-scripts/config/env');
-const webpack = require('webpack');
 const paths = require('./paths');
 
 const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
@@ -18,8 +17,10 @@ module.exports = (webpackEnv, isDevServerMode = false, workspaces = []) => {
   console.log('webpackEnv', webpackEnv);
   console.log('isDevServerMode', isDevServerMode);
   console.log('paths', paths);
+  console.log('workspaces', workspaces);
 
   let externals = {
+    '@enterprise-ui/appcore': 'AppCore',
     react: 'React',
     'react-dom': 'ReactDOM',
     'react-redux': 'ReactRedux',
@@ -31,13 +32,6 @@ module.exports = (webpackEnv, isDevServerMode = false, workspaces = []) => {
     'redux-saga/effects': 'ReduxSagaEffects',
     'redux-thunk': 'ReduxThunk',
   };
-
-  const scripts = ['<script crossorigin src="/vendors/vendors.production.min.js"></script>'];
-
-  if (!isDevServerMode) {
-    externals = { ...externals, '@enterprise-ui/appcore': 'AppCore' };
-    scripts.push('<script crossorigin src="/core/appcore.production.min.js"></script>');
-  }
 
   const config = {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
@@ -56,12 +50,14 @@ module.exports = (webpackEnv, isDevServerMode = false, workspaces = []) => {
     resolve: {
       alias: isDevServerMode
         ? {
-            '@enterprise-ui/appcore': '@enterprise-ui/appcore/src/index.ts',
             ...workspaces.reduce(
-              (acc, w) => ({
-                ...acc,
-                [w.name]: path.join(w.packagePath, w.mainsrc),
-              }),
+              (acc, w) =>
+                !w.isStatic
+                  ? {
+                      ...acc,
+                      [w.packageName]: path.join(w.packagePath, w.mainsrc),
+                    }
+                  : acc,
               {},
             ),
           }
@@ -97,20 +93,18 @@ module.exports = (webpackEnv, isDevServerMode = false, workspaces = []) => {
         ),
       ),
       shouldInlineRuntimeChunk && new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime-.+[.]js/]),
-      new InterpolateHtmlPlugin(HtmlWebpackPlugin, { ...env.raw, SCRIPTS: scripts.join('') }),
+      new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
       new LoadablePlugin(),
-      !isDevServerMode &&
-        new CopyPlugin({
-          patterns: workspaces.map((w) => ({
-            from: path.dirname(require.resolve(w.name)),
-            to: path.join(paths.appBuild, w.module),
+      new CopyPlugin({
+        patterns: workspaces
+          .filter((w) => w.isStatic)
+          .map((w) => ({
+            from: path.dirname(require.resolve(w.packageName)),
+            to: path.join(paths.appBuild, w.publicPath),
           })),
-          options: {
-            concurrency: 100,
-          },
-        }),
-      new webpack.DefinePlugin({
-        DEV_SERVER_MODE: JSON.stringify(isDevServerMode),
+        options: {
+          concurrency: 100,
+        },
       }),
     ].filter((plugin) => plugin),
 
@@ -138,8 +132,9 @@ module.exports = (webpackEnv, isDevServerMode = false, workspaces = []) => {
             paths.appSrcClient,
             ...(isDevServerMode
               ? [
-                  ...paths.platformDependencies,
-                  ...workspaces.map((w) => path.join(w.packagePath, 'src')),
+                  ...workspaces
+                    .filter((w) => !w.isStatic)
+                    .map((w) => path.join(w.packagePath, 'src')),
                 ]
               : []),
           ],

@@ -61,8 +61,8 @@ export interface IModule {
 interface IModuleConfig {
   injectedReducerKey: string;
   injectedSagaKey: string;
+  isStatic: boolean;
   loadModule: () => Promise<IModule>;
-  loadStatic: () => Promise<IModule>;
   moduleName: string;
 }
 

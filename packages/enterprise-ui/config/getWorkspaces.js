@@ -17,7 +17,7 @@ function getPackages(packageJson) {
   return workspaces.packages || null;
 }
 
-module.exports = function getWorkspaces(from, excludes = []) {
+module.exports = function getWorkspaces(from, excludes = [], mode = 'production') {
   const root = findRoot(from, (dir) => {
     const pkg = path.join(dir, 'package.json');
     return fs.existsSync(pkg) && getPackages(require(pkg)) !== null;
@@ -33,17 +33,25 @@ module.exports = function getWorkspaces(from, excludes = []) {
       const result = paths.map((packagePath) => {
         const packageJson = require(path.join(packagePath, 'package.json'));
 
-        const { name, mainsrc, module } = packageJson;
+        const { enterpriseui } = packageJson;
 
-        return {
-          name,
-          mainsrc,
-          module,
-          packagePath,
-        };
+        if (enterpriseui) {
+          const { hot, key, mainsrc, packageName, publicPath } = enterpriseui;
+
+          return {
+            key,
+            mainsrc,
+            isStatic: mode === 'production' || !hot,
+            packageName,
+            packagePath,
+            publicPath,
+          };
+        }
+
+        return null;
       });
 
-      return result.filter(({mainsrc, module}) => !!(mainsrc && module));
+      return result.filter((config) => config);
     }),
   );
 

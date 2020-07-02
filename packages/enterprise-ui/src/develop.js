@@ -67,7 +67,7 @@ checkBrowsers(rootPaths.appPath, isInteractive)
       return;
     }
 
-    const workspaces = getWorkspaces(paths.rootPackageJson, ['packages/*']);
+    const workspaces = getWorkspaces(paths.rootPackageJson, ['packages/*'], 'development');
     const config = configFactory.configure('development', true, workspaces);
     const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
     const appName = require(paths.appPackageJson).name;

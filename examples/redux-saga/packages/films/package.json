@@ -1,5 +1,5 @@
 {
-  "name": "@enterprise-ui/news",
+  "name": "@enterprise-ui/films",
   "version": "0.1.0",
   "main": "build/bundle.js",
   "private": true,
@@ -45,8 +45,10 @@
     "webpack-cli": "^3.3.11"
   },
   "enterpriseui": {
-    "key": "news",
-    "packageName": "@enterprise-ui/news",
-    "publicPath": "/news"
+    "hot": true,
+    "key": "films",
+    "mainsrc": "src/index.ts",
+    "packageName": "@enterprise-ui/films",
+    "publicPath": "/films"
   }
 }

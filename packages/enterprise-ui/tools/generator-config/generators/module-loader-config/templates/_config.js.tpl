@@ -1,15 +1,16 @@
 // @generator
 module.exports = {
 <%_ workspaces.forEach(function(w){ _%>
-  '/<%= w.module %>': {
-    injectedReducerKey: '<%= w.module %>',
-    injectedSagaKey: '<%= w.module %>',
-    <%_ if (isLoadStatic) { _%>
-    loadStatic: () => import(/* webpackIgnore: true */ '/<%= w.module %>/bundle.js'),
+  '/<%= w.key %>': {
+    injectedReducerKey: '<%= w.key %>',
+    injectedSagaKey: '<%= w.key %>',
+    isStatic: <%= w.isStatic %>,
+    <%_ if (w.isStatic) { _%>
+    loadModule: () => import(/* webpackIgnore: true */ '<%= w.publicPath %>/bundle.js'),
+    moduleName: '<%= w.key %>',
     <%_ } else { _%>
-    loadModule: () => import('<%= w.name %>'),
+    loadModule: () => import('<%= w.packageName %>'),
     <%_ } _%>
-    moduleName: '<%= w.module %>',
   },
 <%_ }); _%>
 };

@@ -5,7 +5,7 @@ const paths = require('../config/paths');
 const getWorkspaces = require('../config/getWorkspaces');
 
 const workspaces = getWorkspaces(paths.rootPackageJson, ['packages/*']);
-const routes = workspaces.map(({module}) => `/${module}`);
+const routes = workspaces.map(({publicPath}) => publicPath);
 
 const app = express();
 

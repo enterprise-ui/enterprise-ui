@@ -9,17 +9,16 @@ class ModuleLoaderConfigGenerator extends BaseGenerator {
     super(args, opts);
 
     const {
-      options: { mode, moduleLoaderConfigSrc, workspaces },
+      options: { moduleLoaderConfigSrc, workspaces },
     } = opts;
 
-    this.mode = mode;
     this.workspaces = workspaces[0];
     this.moduleLoaderConfigSrc = moduleLoaderConfigSrc;
   }
 
   default() {
     this.createFile('_config.js.tpl', path.join(this.moduleLoaderConfigSrc, 'config.js'), {
-      isLoadStatic: this.mode === 'production', workspaces: this.workspaces,
+      workspaces: this.workspaces,
     });
   }
 }

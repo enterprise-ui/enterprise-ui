@@ -8,7 +8,7 @@ const yeoman = require('yeoman-environment');
 const getWorkspaces = require('../config/getWorkspaces');
 const rootPaths = require('../config/paths');
 
-const workspaces = getWorkspaces(rootPaths.rootPackageJson, ['packages/*']);
+const workspaces = getWorkspaces(rootPaths.rootPackageJson, ['packages/*'], mode);
 
 const { paths } = require(rootPaths.appConfig);
 
@@ -19,7 +19,7 @@ const env = yeoman.createEnv();
 console.log('Generate with mode', mode);
 
 env.lookup(() => {
-  env.run(['config', workspaces, moduleLoaderConfigSrc, mode], { force: true }, (err) => {
+  env.run(['config', workspaces, moduleLoaderConfigSrc], { force: true }, (err) => {
     if (!err) {
       console.log('done');
     } else {

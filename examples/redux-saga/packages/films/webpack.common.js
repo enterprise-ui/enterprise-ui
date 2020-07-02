@@ -46,12 +46,6 @@ module.exports = {
         options: {
           babelrc: false,
           plugins: [
-            [
-              require.resolve('@babel/plugin-transform-runtime'),
-              {
-                regenerator: true,
-              },
-            ],
             [require.resolve('@babel/plugin-proposal-decorators'), { legacy: true }],
             require.resolve('@babel/plugin-proposal-class-properties'),
           ],
