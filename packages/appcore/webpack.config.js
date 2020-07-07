@@ -1,22 +1,15 @@
-const merge = require('webpack-merge');
+const apputils = require('@enterprise-ui/apputils');
 const paths = require('./paths');
-const baseConfig = require('./webpack.common');
 
-module.exports = function (webpackEnv) {
-  const isEnvDevelopment = webpackEnv === 'development';
-  const isEnvProduction = webpackEnv === 'production';
-
-  return merge(baseConfig, {
-    // mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
-    mode: 'production',
-
-    entry: paths.appSrc,
-
-    output: {
-      filename: 'index.js',
-      library: 'AppCore',
-      libraryTarget: 'umd',
-      path: paths.appBuild,
-    },
+module.exports = (env, argv) => {
+  const config = apputils.createWebpackConfig({
+    entries: [paths.appSrc],
+    outputPath: paths.appBuild,
+    packageJsonPath: paths.packageJson,
+    webpackEnv: argv.mode,
   });
+
+  console.log('webpackConfig', config);
+
+  return config;
 };

@@ -44,9 +44,9 @@
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-cli": "^3.3.11"
   },
-  "enterpriseui": {
+  "enterprise-ui": {
     "key": "news",
-    "packageName": "@enterprise-ui/news",
+    "mainsrc": "src/index.ts",
     "publicPath": "/news"
   }
 }

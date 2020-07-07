@@ -11,5 +11,6 @@ module.exports = {
   appNodeModules: resolveApp('../../node_modules'),
   appSrc: resolveApp('src'),
   moduleFileExtensions,
+  packageJson: resolveApp('package.json'),
   packageNodeModules: resolveApp('./node_modules'),
 };

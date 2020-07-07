@@ -44,11 +44,10 @@
     "webpack-bundle-analyzer": "^3.8.0",
     "webpack-cli": "^3.3.11"
   },
-  "enterpriseui": {
+  "enterprise-ui": {
     "hot": true,
     "key": "films",
     "mainsrc": "src/index.ts",
-    "packageName": "@enterprise-ui/films",
     "publicPath": "/films"
   }
 }

@@ -1,28 +1,15 @@
-const merge = require('webpack-merge');
+const apputils = require('@enterprise-ui/apputils');
 const paths = require('./paths');
-const baseConfig = require('./webpack.common');
 
-module.exports = function (webpackEnv) {
-  const isEnvDevelopment = webpackEnv === 'development';
-  const isEnvProduction = webpackEnv === 'production';
-
-  const config = merge(baseConfig, {
-    mode: 'production',
-
-    devtool: 'inline-source-map',
-
-    entry: paths.appSrc,
-
-    output: {
-      filename: 'bundle.js',
-      library: 'news',
-      libraryTarget: 'umd',
-      path: paths.appBuild,
-      publicPath: '/news',
-    },
+module.exports = (env, argv) => {
+  const config = apputils.createWebpackConfig({
+    entries: [paths.appSrc],
+    outputPath: paths.appBuild,
+    packageJsonPath: paths.packageJson,
+    webpackEnv: argv.mode,
   });
 
-  console.log(config);
+  console.log('webpackConfig', config);
 
   return config;
 };

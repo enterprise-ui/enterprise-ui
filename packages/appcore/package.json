@@ -35,5 +35,8 @@
   },
   "dependencies": {
     "qs": "^6.9.3"
+  },
+  "enterprise-ui": {
+    "key": "AppCore"
   }
 }

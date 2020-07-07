@@ -11,4 +11,5 @@ module.exports = {
   appConfig: resolveApp('src/enterprise-ui.config'),
   appSrc: resolveApp('src'),
   moduleFileExtensions,
+  packageJson: resolveApp('package.json'),
 };

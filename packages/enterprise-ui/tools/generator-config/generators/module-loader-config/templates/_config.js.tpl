@@ -4,12 +4,12 @@ module.exports = {
   '/<%= w.key %>': {
     injectedReducerKey: '<%= w.key %>',
     injectedSagaKey: '<%= w.key %>',
-    isStatic: <%= w.isStatic %>,
-    <%_ if (w.isStatic) { _%>
+    <%_ if (w.useSrc) { _%>
+    loadModule: () => import('<%= w.packageName %>'),
+    useSrc: <%= w.useSrc %>,
+    <%_ } else { _%>
     loadModule: () => import(/* webpackIgnore: true */ '<%= w.publicPath %>/bundle.js'),
     moduleName: '<%= w.key %>',
-    <%_ } else { _%>
-    loadModule: () => import('<%= w.packageName %>'),
     <%_ } _%>
   },
 <%_ }); _%>

@@ -36,14 +36,14 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
 
       if (target) {
         console.log('unpackage config');
-        const { injectedReducerKey, injectedSagaKey, isStatic, loadModule, moduleName } = target;
+        const { injectedReducerKey, injectedSagaKey, loadModule, moduleName, useSrc} = target;
         let module: IModule;
 
-        if (isStatic) {
+        if (useSrc) {
+          module = await loadModule();
+        } else {
           await loadModule();
           module = window[moduleName];
-        } else {
-          module = await loadModule();
         }
 
         const { reducer, routes, saga } = module;
