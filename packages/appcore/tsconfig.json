@@ -20,6 +20,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "emitDeclarationOnly": true,
   },
   "include": [
     "src"

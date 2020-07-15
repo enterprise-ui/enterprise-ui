@@ -8,7 +8,7 @@
     ]
   },
   "scripts": {
-    "preinstall1": "node ./tools/preinstall.js",
+    "prebuild": "enterprise-ui prebuild",
     "cmd": "enterprise-ui develop",
     "build": "lerna run app:build",
     "develop": "lerna run app:develop --stream",

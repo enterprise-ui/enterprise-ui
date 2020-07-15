@@ -4,7 +4,7 @@
   "main": "build/bundle.js",
   "private": true,
   "scripts": {
-    "app:build": "webpack --mode production"
+    "build": "webpack --mode production"
   },
   "peerDependencies": {
     "@enterprise-ui/appcore": "0.1.0",

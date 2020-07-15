@@ -19,6 +19,7 @@ function getPackages(packageJson) {
 
 module.exports = function getWorkspaces(from, excludes = [], mode = 'production') {
   const root = findRoot(from, (dir) => {
+    console.log('dir', dir);
     const pkg = path.join(dir, 'package.json');
     return fs.existsSync(pkg) && getPackages(require(pkg)) !== null;
   });

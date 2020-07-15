@@ -1,12 +1,11 @@
 {
   "name": "@enterprise-ui/appcore",
   "version": "0.1.0",
-  "main": "build/index.js",
-  "mainsrc": "src/index.ts",
+  "main": "build/bundle.js",
   "types": "build/types/index.d.ts",
   "private": true,
   "scripts": {
-    "app:build": "webpack --mode production && yarn gen",
+    "build": "webpack --mode production && yarn gen",
     "gen": "tsc --emitDeclarationOnly"
   },
   "peerDependencies": {

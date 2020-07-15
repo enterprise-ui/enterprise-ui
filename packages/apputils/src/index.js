@@ -77,7 +77,7 @@ module.exports = {
             use: [
               {
                 options: {
-                  cache: true,
+                  // cache: true,
                   eslintPath: require.resolve('eslint'),
                   resolvePluginsRelativeTo: __dirname,
                   useEslintrc: true,

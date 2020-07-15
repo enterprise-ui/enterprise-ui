@@ -3,7 +3,6 @@ Enterprise-UI
 
 ## Getting started
 
-Install dependencies:
 ```
 $ yarn global add lerna
 $ yarn install
