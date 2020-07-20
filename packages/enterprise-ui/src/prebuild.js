@@ -2,28 +2,33 @@ const path = require('path');
 const getWorkspaces = require('../config/getWorkspaces');
 const paths = require('../config/paths');
 const build = require('../utils/build');
-const tsCompiler = require('../utils/tsCompiler');
 
-const workspaces = getWorkspaces(paths.appPackageJson);
+const platforms = getWorkspaces(paths.appPackageJson, ['examples/**/packages/*']);
+const domains = getWorkspaces(paths.appPackageJson, ['packages/*']);
 
-console.log('workspaces', workspaces);
+console.log('platforms', platforms);
+console.log('domains', domains);
 
-workspaces.forEach((w) => {
-  const packageJson = require(path.join(w.packagePath, 'package.json'));
-  const getWebpackConfig = require(path.join(w.packagePath, 'webpack.config.js'));
-  const webpackConfig = getWebpackConfig(null, { mode: 'production' });
+async function run() {
+  await Promise.all(prebuild(platforms));
+  prebuild(domains);
+}
 
-  const { types } = packageJson;
+function prebuild(workspaces) {
+  const promises = workspaces.map((w) => {
+    const getWebpackConfig = require(path.join(w.packagePath, 'webpack.config.js'));
+    const webpackConfig = getWebpackConfig(null, { mode: 'production' });
 
-  const {
-    output: { path: appBuild },
-  } = webpackConfig;
+    const {
+      output: { path: appBuild },
+    } = webpackConfig;
 
-  if (types) {
-    tsCompiler(path.join(w.packagePath, 'tsconfig.json'));
-  }
+    return build(webpackConfig, {
+      appBuild,
+    });
+  });
 
-  build(webpackConfig, {
-    appBuild,
-  }).then(() => console.log('done'));
-});
+  return promises;
+}
+
+run();

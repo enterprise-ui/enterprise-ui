@@ -9,9 +9,8 @@
   },
   "scripts": {
     "prebuild": "enterprise-ui prebuild",
-    "cmd": "enterprise-ui develop",
-    "build": "lerna run app:build",
-    "develop": "lerna run app:develop --stream",
+    "build": "yarn prebuild && lerna run app:build --stream",
+    "develop": "yarn prebuild && lerna run app:develop --stream",
     "gen": "lerna run app:gen --stream",
     "start": "lerna run app:start --stream",
     "ci:app:tags": "node packages/app/ci/tags.js",

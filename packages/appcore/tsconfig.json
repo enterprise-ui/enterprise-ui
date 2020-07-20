@@ -7,8 +7,6 @@
       "es6"
     ],
     "jsx": "react",
-    "declaration": true,
-    "declarationDir": "build/types",
     "target": "es6",
     "module": "esnext",
     "moduleResolution": "node",
@@ -20,7 +18,6 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "emitDeclarationOnly": true,
   },
   "include": [
     "src"

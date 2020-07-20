@@ -1,6 +1,9 @@
+const path = require('path');
+
 module.exports = {
   createWebpackConfig: (options) => {
     const {
+      appPath,
       babelIncludes = [],
       babelOptions = {},
       entries,
@@ -14,6 +17,7 @@ module.exports = {
       publicPath,
       resolve = {},
       webpackEnv,
+      withDts = false,
     } = options;
 
     const { plugins: babelPlugins = [] } = babelOptions;
@@ -71,6 +75,24 @@ module.exports = {
 
       module: {
         rules: [
+          withDts && {
+            test: /\.(js|jsx|ts|tsx)$/,
+            enforce: 'pre',
+            include: [path.join(appPath, 'src')],
+            use: [
+              {
+                loader: 'ts-loader',
+                options: {
+                  configFile: path.join(appPath, 'tsconfig.json'),
+                  compilerOptions: {
+                    declaration: true,
+                    declarationDir: 'build/types',
+                  },
+                  onlyCompileBundledFiles: true,
+                },
+              },
+            ],
+          },
           {
             test: /\.(js|jsx|ts|tsx)$/,
             enforce: 'pre',
@@ -111,7 +133,7 @@ module.exports = {
               ],
             },
           },
-        ],
+        ].filter((r) => r),
       },
     };
 
