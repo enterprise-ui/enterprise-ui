@@ -3,8 +3,8 @@ module.exports = {
   '/films': {
     injectedReducerKey: 'films',
     injectedSagaKey: 'films',
-    loadModule: () => import('@enterprise-ui/films'),
-    useSrc: true,
+    loadModule: () => import(/* webpackIgnore: true */ '/films/bundle.js'),
+    moduleName: 'films',
   },
   '/news': {
     injectedReducerKey: 'news',

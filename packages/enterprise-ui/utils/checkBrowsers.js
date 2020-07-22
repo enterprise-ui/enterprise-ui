@@ -4,6 +4,7 @@ const chalk = require('react-dev-utils/chalk');
 const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
 const printBuildError = require('react-dev-utils/printBuildError');
 const printHostingInstructions = require('react-dev-utils/printHostingInstructions');
+const createFile = require('./createFile');
 const build = require('./build');
 
 const measureFileSizesBeforeBuild = FileSizeReporter.measureFileSizesBeforeBuild;
@@ -16,7 +17,18 @@ const isInteractive = process.stdout.isTTY;
 
 const checkBrowsers = (
   webpackConfig,
-  { appBuild, appHtml, appPackageJson, appPath, appPublic, copyPublic, publicUrl, useYarn },
+  {
+    appBuild,
+    appHtml,
+    appPackageJson,
+    appPath,
+    appPublic,
+    copyPublic,
+    platforms,
+    publicUrl,
+    useYarn,
+    vendors = [],
+  },
 ) =>
   browsersHelper(appPath, isInteractive)
     .then(() => {
@@ -29,7 +41,11 @@ const checkBrowsers = (
       // if you're in it, you don't end up in Trash
       fs.emptyDirSync(appBuild);
       // Merge with the public folder
-      copyPublic && copyPublicFolder({ appBuild, appHtml, appPublic });
+      if (copyPublic) {
+        createFile(appPath, 'public/platform', 'platform.production.min.js', platforms);
+        createFile(appPath, 'public/vendors', 'vendors.production.min.js', vendors);
+        copyPublicFolder({ appBuild, appHtml, appPublic });
+      }
       // Start the webpack build
       return build(webpackConfig, { appBuild, previousFileSizes });
     })

@@ -8,10 +8,13 @@
     ]
   },
   "scripts": {
-    "build": "lerna run platform:build && lerna run domain:gen && lerna run domain:build --stream",
-    "develop": "yarn build && lerna run domain:develop --stream",
-    "start": "lerna run domain:start --stream",
-    "gen": "lerna run domain:gen --stream",
+    "build": "yarn build:dependencies && lerna run app:build --stream",
+    "build:domain": "lerna run domain:build --stream",
+    "build:platform": "lerna run platform:build --stream",
+    "build:dependencies": "yarn build:platform && yarn build:domain",
+    "develop": "yarn build:dependencies && lerna run app:develop --stream",
+    "start": "lerna run app:start --stream",
+    "gen": "lerna run app:gen --stream",
     "ci:app:tags": "node packages/app/ci/tags.js",
     "ci:storybook:tags": "node packages/storybook/ci/tags.js",
     "ci:subnamespace": "node ci/subnamespace.js",
