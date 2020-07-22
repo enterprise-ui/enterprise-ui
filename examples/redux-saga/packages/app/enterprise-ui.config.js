@@ -10,4 +10,9 @@ module.exports = enterprise_ui.config({
     configure: (proxy, allowedHost) => getWebpackDevServerConfig(proxy, allowedHost),
   },
   paths: require('./config/paths'),
+  packages: [
+    '@enterprise-ui/films',
+    '@enterprise-ui/news'
+  ],
+  vendors: [], // TODO: Автоматизация сборки вендоров.
 });

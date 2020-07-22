@@ -1,10 +1,14 @@
+process.env.NODE_ENV = 'production';
+
 const compression = require('compression');
 const express = require('express');
 const path = require('path');
 const paths = require('../config/paths');
 const getWorkspaces = require('../config/getWorkspaces');
 
-const workspaces = getWorkspaces(paths.rootPackageJson, ['packages/*']);
+const { packages } = require(paths.appConfig);
+
+const workspaces = getWorkspaces(paths.rootPackageJson, packages);
 const routes = workspaces.map(({publicPath}) => publicPath);
 
 const app = express();

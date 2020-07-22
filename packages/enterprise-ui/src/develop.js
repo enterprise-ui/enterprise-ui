@@ -32,7 +32,7 @@ const openBrowser = require('react-dev-utils/openBrowser');
 const getWorkspaces = require('../config/getWorkspaces');
 const rootPaths = require('../config/paths');
 
-const { configFactory, createDevServerConfig, paths } = require(rootPaths.appConfig);
+const { configFactory, createDevServerConfig, packages, paths } = require(rootPaths.appConfig);
 
 const useYarn = fs.existsSync(paths.yarnLockFile);
 const isInteractive = process.stdout.isTTY;
@@ -67,7 +67,7 @@ checkBrowsers(rootPaths.appPath, isInteractive)
       return;
     }
 
-    const workspaces = getWorkspaces(paths.rootPackageJson, ['packages/*'], 'development');
+    const workspaces = getWorkspaces(paths.rootPackageJson, packages, 'development');
     const config = configFactory.configure('development', true, workspaces);
     const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
     const appName = require(paths.appPackageJson).name;

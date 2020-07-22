@@ -5,11 +5,11 @@ const getWorkspaces = require('../config/getWorkspaces');
 const rootPaths = require('../config/paths');
 const checkBrowsers = require('../utils/checkBrowsers');
 
-const { configFactory, paths } = require(rootPaths.appConfig);
+const { configFactory, packages, paths } = require(rootPaths.appConfig);
 
 const useYarn = fs.existsSync(paths.yarnLockFile);
 
-const workspaces = getWorkspaces(paths.rootPackageJson, ['packages/*']);
+const workspaces = getWorkspaces(paths.rootPackageJson, packages);
 
 const webpackConfig = configFactory.configure('production', false, workspaces);
 

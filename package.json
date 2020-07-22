@@ -8,11 +8,10 @@
     ]
   },
   "scripts": {
-    "prebuild": "enterprise-ui prebuild",
-    "build": "yarn prebuild && lerna run app:build --stream",
-    "develop": "yarn prebuild && lerna run app:develop --stream",
-    "gen": "lerna run app:gen --stream",
-    "start": "lerna run app:start --stream",
+    "build": "lerna run platform:build && lerna run domain:gen && lerna run domain:build --stream",
+    "develop": "yarn build && lerna run domain:develop --stream",
+    "start": "lerna run domain:start --stream",
+    "gen": "lerna run domain:gen --stream",
     "ci:app:tags": "node packages/app/ci/tags.js",
     "ci:storybook:tags": "node packages/storybook/ci/tags.js",
     "ci:subnamespace": "node ci/subnamespace.js",
