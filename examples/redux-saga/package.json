@@ -1,0 +1,12 @@
+{
+  "name": "@enterprise-ui/redux-saga",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "build": "cd packages/enterprise-ui; yarn build"
+  }
+}

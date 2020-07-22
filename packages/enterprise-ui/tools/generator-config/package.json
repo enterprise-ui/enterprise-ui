@@ -1,0 +1,20 @@
+{
+    "name": "generator-config",
+    "version": "0.1.0",
+    "description": "The generator of application configuration.",
+    "main": "generators/main/index.js",
+    "files": [
+        "generators/main",
+        "generators/module-loader-config"
+    ],
+    "keywords": [
+        "yeoman-generator"
+    ],
+    "dependencies": {
+        "acorn-es7": "^0.1.0",
+        "ast-query": "^2.0.0",
+        "estraverse": "^4.3.0",
+        "prettier": "^2.0.5",
+        "yeoman-generator": "^4.10.1"
+    }
+}

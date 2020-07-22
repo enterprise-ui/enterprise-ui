@@ -1,23 +1,36 @@
 {
-    "name": "@enterprise-ui/enterprise-ui-root",
-    "private": true,
-    "workspaces": {
-        "packages": [
-          "packages/*",
-          "examples/**/packages/*"
-        ]
-    },
-    "scripts": {
-      "preinstall1" : "node ./tools/preinstall.js",
-      "cmd": "enterprise-ui develop",
-      "build": "cd packages/enterprise-ui; yarn build",
-      "ci:app:tags": "node packages/app/ci/tags.js",
-      "ci:storybook:tags": "node packages/storybook/ci/tags.js",
-      "ci:subnamespace": "node ci/subnamespace.js",
-      "ci:subdomain": "node ci/subdomain.js"
-    },
-    "devDependencies": {
-      "cross-env": "7.0.2",
-      "ts-node": "^8.10.1"
-    }
+  "name": "@enterprise-ui/enterprise-ui-root",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "examples/**/packages/*"
+    ]
+  },
+  "scripts": {
+    "prebuild": "enterprise-ui prebuild",
+    "build": "yarn prebuild && lerna run app:build --stream",
+    "develop": "yarn prebuild && lerna run app:develop --stream",
+    "gen": "lerna run app:gen --stream",
+    "start": "lerna run app:start --stream",
+    "ci:app:tags": "node packages/app/ci/tags.js",
+    "ci:storybook:tags": "node packages/storybook/ci/tags.js",
+    "ci:subnamespace": "node ci/subnamespace.js",
+    "ci:subdomain": "node ci/subdomain.js"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "2.x",
+    "@typescript-eslint/parser": "2.x",
+    "babel-eslint": "10.x",
+    "cross-env": "7.0.2",
+    "eslint": "6.x",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-flowtype": "4.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jsx-a11y": "6.x",
+    "eslint-plugin-react": "7.x",
+    "eslint-plugin-react-hooks": "2.x",
+    "prettier": "2.0.5",
+    "ts-node": "^8.10.1"
   }
+}

@@ -1,1 +1,1 @@
-console.log('Enterprise-UI startssr is not implemented')
+console.log('Enterprise-UI startsst is not implemented')
