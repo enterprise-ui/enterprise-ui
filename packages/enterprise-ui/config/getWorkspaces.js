@@ -17,7 +17,7 @@ function getPackages(packageJson) {
   return workspaces.packages || null;
 }
 
-module.exports = function getWorkspaces(from, excludes = [], mode = 'production') {
+module.exports = function getWorkspaces(from, includesModules = [], mode = 'production') {
   const root = findRoot(from, (dir) => {
     console.log('dir', dir);
     const pkg = path.join(dir, 'package.json');
@@ -25,20 +25,20 @@ module.exports = function getWorkspaces(from, excludes = [], mode = 'production'
   });
 
   const packages = getPackages(require(path.join(root, 'package.json')));
-  const excludePatterns = excludes.map((name) => path.join(root, name));
 
   const workspaces = flatten(
     packages.map((workspace) => {
-      const paths = glob.sync(path.join(root, workspace), { ignore: excludePatterns });
+      const paths = glob.sync(path.join(root, workspace));
 
       const result = paths.map((packagePath) => {
         const packageJson = require(path.join(packagePath, 'package.json'));
+        const { name: packageName } = packageJson;
 
         const params = packageJson['enterprise-ui'];
+        const include = includesModules.indexOf(packageName) !== -1
 
-        if (params) {
-          const { name: packageName } = packageJson;
-          const { hot, key, mainsrc, publicPath } = params;
+        if (include && params) {
+          const { hot, key, mainsrc, publicPath } = params || {};
 
           return {
             key,
@@ -56,6 +56,8 @@ module.exports = function getWorkspaces(from, excludes = [], mode = 'production'
       return result.filter((config) => config);
     }),
   );
+
+  console.log('workspaces', workspaces);
 
   return workspaces;
 };

@@ -8,7 +8,9 @@ const yeoman = require('yeoman-environment');
 const getWorkspaces = require('../config/getWorkspaces');
 const rootPaths = require('../config/paths');
 
-const workspaces = getWorkspaces(rootPaths.rootPackageJson, ['packages/*'], mode);
+const { packages } = require(rootPaths.appConfig);
+
+const workspaces = getWorkspaces(rootPaths.rootPackageJson, packages, mode);
 
 const { paths } = require(rootPaths.appConfig);
 

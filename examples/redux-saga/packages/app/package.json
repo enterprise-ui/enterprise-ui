@@ -4,10 +4,10 @@
   "main": "build/www.js",
   "private": true,
   "scripts": {
-    "app:build": "yarn app:gen && enterprise-ui build",
-    "app:develop": "enterprise-ui gen --mode development && enterprise-ui develop",
-    "app:gen": "enterprise-ui gen --mode production",
-    "app:start": "enterprise-ui start"
+    "domain:build": "enterprise-ui build",
+    "domain:develop": "enterprise-ui gen --mode development && enterprise-ui develop",
+    "domain:gen": "enterprise-ui gen --mode production",
+    "domain:start": "enterprise-ui start"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",
@@ -24,6 +24,8 @@
   },
   "dependencies": {
     "@enterprise-ui/appcore": "0.1.0",
+    "@enterprise-ui/films": "0.1.0",
+    "@enterprise-ui/news": "0.1.0",
     "babel-polyfill": "^6.26.0",
     "compression": "^1.7.4",
     "i18next": "^19.4.1",
@@ -55,5 +57,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "enterprise-ui": {
+    "key": "app"
   }
 }
