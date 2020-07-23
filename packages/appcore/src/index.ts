@@ -1,3 +1,4 @@
+import { ModuleLoader } from './components/ModuleLoader';
 import configureStore from './store/configureStore';
 import { IStore } from './store/Models';
 import injectReducer from './store/utils/injectReducer';
@@ -38,5 +39,6 @@ export {
   configureStore,
   injectReducer,
   injectSaga,
+  ModuleLoader,
   withInitialProps,
 };
