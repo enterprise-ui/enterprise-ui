@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { configureStore } from '@enterprise-ui/appcore';
+import { configureStore, ModuleLoader } from '@enterprise-ui/appcore';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
@@ -10,7 +10,6 @@ import { ThemeProvider } from 'styled-components';
 
 import AppConfig from '../config';
 
-import { ModuleLoader } from './components/ModuleLoader';
 import { usePrefersDarkMode } from './hooks/usePrefersDarkMode';
 import rootReducer from './store/reducers/rootReducer';
 import { GlobalStyle } from './styles/global';

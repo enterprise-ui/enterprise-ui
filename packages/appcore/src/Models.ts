@@ -63,7 +63,7 @@ interface IModuleConfig {
   injectedSagaKey: string;
   loadModule: () => Promise<IModule>;
   moduleName: string;
-  useSrc: boolean;
+  useSrc?: boolean;
 }
 
 export interface IApplicationConfig {

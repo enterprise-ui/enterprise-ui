@@ -1,17 +1,13 @@
 import React from 'react';
 
-import {
-  IApplicationConfig,
-  IModule,
-  injectReducer,
-  injectSaga,
-  IRoute,
-  IStore,
-} from '@enterprise-ui/appcore';
 import { RouteComponentProps } from 'react-router';
 import { withRouter } from 'react-router-dom';
 
-import { renderRoutes } from '../renderRoutes';
+import { IApplicationConfig, IModule,IRoute } from '../Models';
+import { renderRoutes } from '../router/renderRoutes';
+import { IStore } from '../store/Models';
+import injectReducer from '../store/utils/injectReducer';
+import injectSaga from '../store/utils/injectSaga';
 
 interface IOwnProps {
   appConfig: IApplicationConfig;
@@ -36,7 +32,7 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
 
       if (target) {
         console.log('unpackage config');
-        const { injectedReducerKey, injectedSagaKey, loadModule, moduleName, useSrc} = target;
+        const { injectedReducerKey, injectedSagaKey, loadModule, moduleName, useSrc } = target;
         let module: IModule;
 
         if (useSrc) {
