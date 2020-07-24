@@ -20,6 +20,7 @@ const fs = require('fs');
 const chalk = require('react-dev-utils/chalk');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
+const { checkBrowsers } = require('react-dev-utils/browsersHelper');
 const clearConsole = require('react-dev-utils/clearConsole');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const {
@@ -30,7 +31,9 @@ const {
 } = require('react-dev-utils/WebpackDevServerUtils');
 const openBrowser = require('react-dev-utils/openBrowser');
 const getWorkspaces = require('../config/getWorkspaces');
+const getBundles = require('../config/getBundles');
 const rootPaths = require('../config/paths');
+const createFile = require('../utils/createFile');
 
 const { configFactory, createDevServerConfig, packages, paths } = require(rootPaths.appConfig);
 
@@ -57,74 +60,82 @@ if (process.env.HOST) {
   console.log();
 }
 
-const { checkBrowsers } = require('react-dev-utils/browsersHelper');
-checkBrowsers(rootPaths.appPath, isInteractive)
-  .then(() => {
-    return choosePort(HOST, DEFAULT_PORT);
-  })
-  .then((port) => {
-    if (port == null) {
-      return;
-    }
+async function develop() {
+  const {platformList, vendorList} = await getBundles();
 
-    const workspaces = getWorkspaces(paths.rootPackageJson, packages, 'development');
-    const config = configFactory.configure('development', true, workspaces);
-    const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
-    const appName = require(paths.appPackageJson).name;
-    const useTypeScript = fs.existsSync(paths.appTsConfig);
-    const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true';
-    const urls = prepareUrls(protocol, HOST, port, paths.publicUrlOrPath.slice(0, -1));
-    const devSocket = {
-      warnings: (warnings) => devServer.sockWrite(devServer.sockets, 'warnings', warnings),
-      errors: (errors) => devServer.sockWrite(devServer.sockets, 'errors', errors),
-    };
-
-    const compiler = createCompiler({
-      appName,
-      config,
-      devSocket,
-      urls,
-      useYarn,
-      useTypeScript,
-      tscCompileOnError,
-      webpack,
-    });
-
-    const proxySetting = require(paths.appPackageJson).proxy;
-    const proxyConfig = prepareProxy(proxySetting, paths.appPublic, paths.publicUrlOrPath);
-
-    const serverConfig = createDevServerConfig.configure(proxyConfig, urls.lanUrlForConfig);
-    const devServer = new WebpackDevServer(compiler, serverConfig);
-
-    devServer.listen(port, HOST, (err) => {
-      if (err) {
-        return console.log(err);
-      }
-      if (isInteractive) {
-        clearConsole();
+  checkBrowsers(rootPaths.appPath, isInteractive)
+    .then(() => {
+      return choosePort(HOST, DEFAULT_PORT);
+    })
+    .then((port) => {
+      if (port == null) {
+        return;
       }
 
-      console.log(chalk.cyan('Starting the development server...\n'));
-      openBrowser(urls.localUrlForBrowser);
-    });
+      const workspaces = getWorkspaces(rootPaths.rootPackageJson, packages, 'development');
+      const config = configFactory.configure('development', true, workspaces);
+      const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
+      const appName = require(paths.appPackageJson).name;
+      const useTypeScript = fs.existsSync(paths.appTsConfig);
+      const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true';
+      const urls = prepareUrls(protocol, HOST, port, paths.publicUrlOrPath.slice(0, -1));
+      const devSocket = {
+        warnings: (warnings) => devServer.sockWrite(devServer.sockets, 'warnings', warnings),
+        errors: (errors) => devServer.sockWrite(devServer.sockets, 'errors', errors),
+      };
 
-    ['SIGINT', 'SIGTERM'].forEach(function (sig) {
-      process.on(sig, function () {
-        devServer.close();
-        process.exit();
-      });
-    });
+      createFile(rootPaths.appPath, 'public/platform', 'platform.production.min.js', platformList);
+      createFile(rootPaths.appPath, 'public/vendors', 'vendors.production.min.js', vendorList);
 
-    if (process.env.CI !== 'true') {
-      process.stdin.on('end', function () {
-        devServer.close();
-        process.exit();
+      const compiler = createCompiler({
+        appName,
+        config,
+        devSocket,
+        urls,
+        useYarn,
+        useTypeScript,
+        tscCompileOnError,
+        webpack,
       });
-    }
-  })
-  .catch((err) => {
-    if (err && err.message) {
-      console.log(err.message);
-    }
-    process.exit(1);
-  });
+
+      const proxySetting = require(paths.appPackageJson).proxy;
+      const proxyConfig = prepareProxy(proxySetting, paths.appPublic, paths.publicUrlOrPath);
+
+      const serverConfig = createDevServerConfig.configure(proxyConfig, urls.lanUrlForConfig);
+      const devServer = new WebpackDevServer(compiler, serverConfig);
+
+      devServer.listen(port, HOST, (err) => {
+        if (err) {
+          return console.log(err);
+        }
+        if (isInteractive) {
+          clearConsole();
+        }
+
+        console.log(chalk.cyan('Starting the development server...\n'));
+        openBrowser(urls.localUrlForBrowser);
+      });
+
+      ['SIGINT', 'SIGTERM'].forEach(function (sig) {
+        process.on(sig, function () {
+          devServer.close();
+          process.exit();
+        });
+      });
+
+      if (process.env.CI !== 'true') {
+        process.stdin.on('end', function () {
+          devServer.close();
+          process.exit();
+        });
+      }
+    })
+    .catch((err) => {
+      if (err && err.message) {
+        console.log(err.message);
+      }
+      process.exit(1);
+    });
+}
+
+develop();

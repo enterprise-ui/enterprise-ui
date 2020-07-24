@@ -38,6 +38,5 @@ module.exports = {
   moduleFileExtensions,
   packageNodeModules: resolveApp('./node_modules'),
   publicUrlOrPath,
-  rootPackageJson: resolveApp('../../package.json'),
   yarnLockFile: resolveApp('../../yarn.lock'),
 };

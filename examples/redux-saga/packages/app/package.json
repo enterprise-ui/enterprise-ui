@@ -4,10 +4,10 @@
   "main": "build/www.js",
   "private": true,
   "scripts": {
-    "domain:build": "enterprise-ui build",
-    "domain:develop": "enterprise-ui gen --mode development && enterprise-ui develop",
-    "domain:gen": "enterprise-ui gen --mode production",
-    "domain:start": "enterprise-ui start"
+    "app:build": "enterprise-ui gen --mode production && enterprise-ui build",
+    "app:develop": "enterprise-ui gen --mode development && enterprise-ui develop",
+    "app:start": "enterprise-ui start",
+    "app:gen": "enterprise-ui gen --mode production"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",
