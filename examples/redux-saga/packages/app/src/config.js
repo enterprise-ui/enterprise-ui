@@ -12,4 +12,10 @@ module.exports = {
     loadModule: () => import(/* webpackIgnore: true */ '/news/bundle.js'),
     moduleName: 'news',
   },
+  '/feed': {
+    injectedReducerKey: 'feed',
+    injectedSagaKey: 'feed',
+    loadModule: () => import(/* webpackIgnore: true */ '/feed/bundle.js'),
+    moduleName: 'feed',
+  },
 };

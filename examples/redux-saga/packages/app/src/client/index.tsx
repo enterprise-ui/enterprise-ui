@@ -26,6 +26,7 @@ const AppContainer = () => {
         <Provider store={store}>
           <Router>
             <Link to="/news">News</Link>
+            <Link to="/feed">Feed</Link>
             <Link to="/films">Films</Link>
             <ModuleLoader appConfig={AppConfig} store={store} />
           </Router>

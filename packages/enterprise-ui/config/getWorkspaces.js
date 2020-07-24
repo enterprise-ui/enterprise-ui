@@ -3,6 +3,7 @@ const flatten = require('flatten');
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
+const rootPaths = require('./paths');
 
 function getPackages(packageJson) {
   if (!('workspaces' in packageJson)) {
@@ -30,34 +31,55 @@ module.exports = function getWorkspaces(from, includesModules = [], mode = 'prod
     packages.map((workspace) => {
       const paths = glob.sync(path.join(root, workspace));
 
-      const result = paths.map((packagePath) => {
-        const packageJson = require(path.join(packagePath, 'package.json'));
-        const { name: packageName } = packageJson;
+      const projectModules = paths
+        .map((packagePath) => {
+          const packageJson = require(path.join(packagePath, 'package.json'));
 
-        const params = packageJson['enterprise-ui'];
-        const include = includesModules.indexOf(packageName) !== -1
+          return { ...getPackageParams(packageJson, includesModules, mode), packagePath };
+        })
+        .filter((config) => config);
 
-        if (include && params) {
-          const { hot, key, mainsrc, publicPath } = params || {};
+      const notFoundModules = includesModules.filter(
+        (name) => !projectModules.find(({ packageName }) => packageName === name),
+      );
 
-          return {
-            key,
-            mainsrc,
-            packageName,
-            packagePath,
-            publicPath,
-            useSrc: mode !== 'production' && hot,
-          };
-        }
+      console.log('notFoundModules', notFoundModules);
 
-        return null;
-      });
+      const nodeModules = notFoundModules
+        .map((moduleName) => {
+          const packagePath = path.join(rootPaths.rootNodeModules, moduleName);
+          const packageJson = require(path.join(packagePath, 'package.json'));
 
-      return result.filter((config) => config);
+          return { ...getPackageParams(packageJson, includesModules, mode), packagePath };
+        })
+        .filter((config) => config);
+
+      return [...projectModules, ...nodeModules];
     }),
-  );
+  ).filter((w) => w.key);
 
   console.log('workspaces', workspaces);
 
   return workspaces;
 };
+
+function getPackageParams(packageJson, includesModules, mode) {
+  const { name: packageName } = packageJson;
+  const include = includesModules.indexOf(packageName) !== -1;
+
+  const params = packageJson['enterprise-ui'];
+
+  if (include && params) {
+    const { hot, key, mainsrc, publicPath } = params || {};
+
+    return {
+      key,
+      mainsrc,
+      packageName,
+      publicPath,
+      useSrc: mode !== 'production' && hot,
+    };
+  }
+
+  return null;
+}

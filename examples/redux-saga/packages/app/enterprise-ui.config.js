@@ -12,7 +12,8 @@ module.exports = enterprise_ui.config({
   paths: require('./config/paths'),
   packages: [
     '@enterprise-ui/films',
-    '@enterprise-ui/news'
+    '@enterprise-ui/news',
+    'feed'
   ],
   platforms: [
     '@enterprise-ui/appcore/build/bundle.js'
