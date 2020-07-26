@@ -1,2 +1,0 @@
-# enterprise-ui
-Enterprise-UI
