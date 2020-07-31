@@ -3,7 +3,6 @@ const flatten = require('flatten');
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
-const rootPaths = require('./paths');
 
 function getPackages(packageJson) {
   if (!('workspaces' in packageJson)) {
@@ -27,6 +26,8 @@ module.exports = function getWorkspaces(from, includesModules = [], mode = 'prod
 
   const packages = getPackages(require(path.join(root, 'package.json')));
 
+  console.log('workspaces', packages);
+
   const workspaces = flatten(
     packages.map((workspace) => {
       const paths = glob.sync(path.join(root, workspace));
@@ -39,6 +40,8 @@ module.exports = function getWorkspaces(from, includesModules = [], mode = 'prod
         })
         .filter((config) => config);
 
+      console.log('projectModules', projectModules);
+
       const notFoundModules = includesModules.filter(
         (name) => !projectModules.find(({ packageName }) => packageName === name),
       );
@@ -47,8 +50,8 @@ module.exports = function getWorkspaces(from, includesModules = [], mode = 'prod
 
       const nodeModules = notFoundModules
         .map((moduleName) => {
-          const packagePath = path.join(rootPaths.rootNodeModules, moduleName);
-          const packageJson = require(path.join(packagePath, 'package.json'));
+          const packagePath = require.resolve(moduleName);
+          const packageJson = require(path.join(moduleName, 'package.json'));
 
           return { ...getPackageParams(packageJson, includesModules, mode), packagePath };
         })
