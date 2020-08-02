@@ -26,17 +26,24 @@ module.exports = function getWorkspaces(from, includesModules = [], mode = 'prod
 
   const packages = getPackages(require(path.join(root, 'package.json')));
 
-  console.log('workspaces', packages);
-
   const workspaces = flatten(
     packages.map((workspace) => {
       const paths = glob.sync(path.join(root, workspace));
 
+      console.log('workspace', workspace);
+      console.log('paths', paths);
+
       const projectModules = paths
         .map((packagePath) => {
-          const packageJson = require(path.join(packagePath, 'package.json'));
+          const packageJsonPath = path.join(packagePath, 'package.json');
 
-          return { ...getPackageParams(packageJson, includesModules, mode), packagePath };
+          if (fs.existsSync(packageJsonPath)) {
+            const packageJson = require(packageJsonPath);
+
+            return { ...getPackageParams(packageJson, includesModules, mode), packagePath };
+          }
+
+          return null;
         })
         .filter((config) => config);
 
@@ -46,8 +53,6 @@ module.exports = function getWorkspaces(from, includesModules = [], mode = 'prod
         (name) => !projectModules.find(({ packageName }) => packageName === name),
       );
 
-      console.log('notFoundModules', notFoundModules);
-
       const nodeModules = notFoundModules
         .map((moduleName) => {
           const packagePath = require.resolve(moduleName);
@@ -56,6 +61,8 @@ module.exports = function getWorkspaces(from, includesModules = [], mode = 'prod
           return { ...getPackageParams(packageJson, includesModules, mode), packagePath };
         })
         .filter((config) => config);
+
+      console.log('nodeModules', nodeModules);
 
       return [...projectModules, ...nodeModules];
     }),
