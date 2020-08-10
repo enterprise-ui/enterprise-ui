@@ -34,6 +34,7 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
+    "inversify": "5.0.1",
     "qs": "^6.9.3"
   },
   "enterprise-ui": {

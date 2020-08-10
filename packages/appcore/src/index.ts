@@ -1,4 +1,7 @@
 import { ModuleLoader } from './components/ModuleLoader';
+import { API, IAPI, IGetRequest } from './context/beans/api';
+import { setContainer } from './context/container';
+import { useInject } from './context/useInject';
 import configureStore from './store/configureStore';
 import { IStore } from './store/Models';
 import injectReducer from './store/utils/injectReducer';
@@ -20,8 +23,10 @@ import {
 import withInitialProps from './withInitialProps';
 
 export type {
+  IAPI,
   IApplicationConfig,
   IContext,
+  IGetRequest,
   IMatchedRouteLoadable,
   IModule,
   IPackageReducerConfig,
@@ -35,10 +40,13 @@ export type {
 };
 
 export {
+  API,
   InitialPropsDecorator,
   configureStore,
   injectReducer,
   injectSaga,
   ModuleLoader,
+  setContainer,
+  useInject,
   withInitialProps,
 };
