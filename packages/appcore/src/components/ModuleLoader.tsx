@@ -39,7 +39,7 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
           module = await loadModule();
         } else {
           await loadModule();
-          module = window[moduleName];
+          module = moduleName ? window[moduleName] : null;
         }
 
         const { reducer, routes, saga } = module;

@@ -1,20 +1,24 @@
 import { Container as InversifyContainer, interfaces } from 'inversify';
 
-class DIContainer extends InversifyContainer {
+import { API,IAPI } from './beans/api';
+
+export interface IDIContainer extends interfaces.Container {
+  addSingleton<T>(constructor: any, id: symbol): interfaces.BindingWhenOnSyntax<T>;
+}
+
+class DIContainer extends InversifyContainer implements IDIContainer {
+  /**
+   * @inheritdoc
+   */
   public addSingleton<T>(constructor: any, id: symbol): interfaces.BindingWhenOnSyntax<T> {
-    console.log('addSingleton', id);
     return super.bind<T>(id).to(constructor).inSingletonScope();
   }
 }
 
-let container: DIContainer;
+export const createDIFactory = (api: { new (): IAPI }): IDIContainer => {
+  const container = new DIContainer();
 
-export function getContainer(): DIContainer {
-  console.log('getContainer', container);
+  container.addSingleton<IAPI>(api, API);
+
   return container;
-}
-
-export function setContainer(options?: interfaces.ContainerOptions): DIContainer {
-  console.log('setContainer', options);
-  return (container = new DIContainer(options));
 }

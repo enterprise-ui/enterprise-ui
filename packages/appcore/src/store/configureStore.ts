@@ -2,6 +2,9 @@ import { applyMiddleware, combineReducers, createStore, Reducer } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import thunkMiddleware from 'redux-thunk';
 
+import { DI_SAGA_CONTAINER_KEY } from '../context/consts';
+import { IDIContainer } from '../context/container';
+
 import { IReducerMap, IState, IStore } from './Models';
 
 export const createReducer = (injectedReducers: IReducerMap = {}) =>
@@ -9,17 +12,21 @@ export const createReducer = (injectedReducers: IReducerMap = {}) =>
     ...injectedReducers,
   });
 
-export default (reducer: Reducer, middlewares = [], initialState: IState = {}): IStore => {
-  console.log('createSagaMiddleware start');
-  const sagaMiddleware = createSagaMiddleware();
-  console.log('createSagaMiddleware end');
+export default (
+  reducer: Reducer,
+  container: IDIContainer,
+  middlewares = [],
+  initialState: IState = {},
+): IStore => {
+  const sagaMiddleware = createSagaMiddleware({
+    context: {
+      [DI_SAGA_CONTAINER_KEY]: container,
+    },
+  });
 
   const middlewaresToApply = [sagaMiddleware, thunkMiddleware, ...middlewares];
-  console.log(middlewaresToApply);
 
-  console.log('createStore start');
   const store: IStore = createStore(reducer, initialState, applyMiddleware(...middlewaresToApply));
-  console.log('createStore end');
 
   store.runSaga = sagaMiddleware.run;
   store.injectedReducers = { root: reducer };

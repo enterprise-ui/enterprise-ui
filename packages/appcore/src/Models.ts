@@ -62,7 +62,7 @@ interface IModuleConfig {
   injectedReducerKey: string;
   injectedSagaKey: string;
   loadModule: () => Promise<IModule>;
-  moduleName: string;
+  moduleName?: string;
   useSrc?: boolean;
 }
 

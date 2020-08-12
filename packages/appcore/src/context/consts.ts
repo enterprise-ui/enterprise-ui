@@ -1,0 +1,1 @@
+export const DI_SAGA_CONTAINER_KEY = 'DI_SAGA_CONTAINER';
