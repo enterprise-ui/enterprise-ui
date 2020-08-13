@@ -3,7 +3,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { withRouter } from 'react-router-dom';
 
-import { IApplicationConfig, IModule,IRoute } from '../Models';
+import { IApplicationConfig, IModule, IRoute } from '../Models';
 import { renderRoutes } from '../router/renderRoutes';
 import { IStore } from '../store/Models';
 import injectReducer from '../store/utils/injectReducer';
@@ -14,24 +14,31 @@ interface IOwnProps {
   store: IStore;
 }
 
+interface IState {
+  routes: IRoute[];
+  isLoading: boolean;
+}
+
+const getDefaultState = (): IState => ({
+  isLoading: true,
+  routes: [],
+});
+
 const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = ({
   appConfig,
   location,
   store,
 }) => {
-  const [routesConfig, setRoutes] = React.useState<IRoute[]>([]);
+  const [state, setState] = React.useState<IState>(getDefaultState());
+  const { isLoading, routes } = state;
 
   React.useEffect(() => {
     async function load() {
-      console.log('load config');
       const path = location.pathname.replace(/\/+$/, '');
 
       const target = appConfig[path];
 
-      console.log(target);
-
       if (target) {
-        console.log('unpackage config');
         const { injectedReducerKey, injectedSagaKey, loadModule, moduleName, useSrc } = target;
         let module: IModule;
 
@@ -39,26 +46,20 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
           module = await loadModule();
         } else {
           await loadModule();
-          module = moduleName ? window[moduleName] : null;
+          module = moduleName ? window[moduleName] : {};
         }
 
         const { reducer, routes, saga } = module;
 
-        console.log('reducer', reducer);
-        console.log('routes', routes);
-        console.log('saga', saga);
-
-        console.log('inject reducer');
         injectReducer(store, injectedReducerKey, reducer);
 
-        console.log('inject saga');
         injectSaga(store, injectedSagaKey, { saga });
 
-        console.log('set routes');
-        setRoutes(routes);
+        setTimeout(() => {
+          setState({ isLoading: false, routes });
+        }, 5000);
       } else {
-        console.log('config is not found');
-        setRoutes([]);
+        setState({ isLoading: false, routes: [] });
       }
     }
 
@@ -66,7 +67,15 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
-  return renderRoutes(routesConfig);
+  return (
+    <div>
+      {isLoading && routes.length === 0 && <span>routes loading</span>}
+      {isLoading && routes.length > 0 && <span>routes updating</span>}
+      {!isLoading && routes.length > 0 && <span>routes loaded</span>}
+      {!isLoading && routes.length === 0 && <span>routes are not found</span>}
+      {renderRoutes(routes)}
+    </div>
+  );
 };
 
 ModuleLoader.displayName = 'ModuleLoader';

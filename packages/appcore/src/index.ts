@@ -1,8 +1,8 @@
 import { ModuleLoader } from './components/ModuleLoader';
 import { API, IAPI, IGetRequest } from './context/beans/api';
 import { createDIFactory } from './context/container';
-import { DIContext } from './context/DIReactContext';
-import { useDIInject as useDISagaInject } from './context/DISagaContext';
+import { DIContext, useInject } from './context/DIReactContext';
+import { getService } from './context/DISagaContext';
 import configureStore from './store/configureStore';
 import { IStore } from './store/Models';
 import injectReducer from './store/utils/injectReducer';
@@ -46,9 +46,10 @@ export {
   InitialPropsDecorator,
   configureStore,
   createDIFactory,
+  getService,
   injectReducer,
   injectSaga,
   ModuleLoader,
-  useDISagaInject,
+  useInject,
   withInitialProps,
 };

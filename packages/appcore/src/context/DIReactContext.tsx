@@ -14,7 +14,7 @@ export const useDIContext = (): IDIContainer | undefined => {
   return container;
 };
 
-export function useDIInject<T>(id: symbol): [T] | [] {
+export function useInject<T>(id: symbol): [T] | [] {
   const container = useDIContext();
 
   return container ? [container.get<T>(id)] : [];

@@ -1,9 +1,8 @@
 import { Container as InversifyContainer, interfaces } from 'inversify';
 
-import { API,IAPI } from './beans/api';
-
-export interface IDIContainer extends interfaces.Container {
+export interface IDIContainer {
   addSingleton<T>(constructor: any, id: symbol): interfaces.BindingWhenOnSyntax<T>;
+  get<T>(id: symbol): T;
 }
 
 class DIContainer extends InversifyContainer implements IDIContainer {
@@ -15,10 +14,8 @@ class DIContainer extends InversifyContainer implements IDIContainer {
   }
 }
 
-export const createDIFactory = (api: { new (): IAPI }): IDIContainer => {
+export const createDIFactory = (): IDIContainer => {
   const container = new DIContainer();
-
-  container.addSingleton<IAPI>(api, API);
 
   return container;
 }
