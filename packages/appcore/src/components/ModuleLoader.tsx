@@ -55,9 +55,7 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
 
         injectSaga(store, injectedSagaKey, { saga });
 
-        setTimeout(() => {
-          setState({ isLoading: false, routes });
-        }, 5000);
+        setState({ isLoading: false, routes });
       } else {
         setState({ isLoading: false, routes: [] });
       }
