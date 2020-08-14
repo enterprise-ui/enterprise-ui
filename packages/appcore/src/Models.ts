@@ -53,6 +53,7 @@ export interface IPackageReducerConfig {
 }
 
 export interface IModule {
+  i18nConfig?: any;
   reducer: Reducer;
   routes: IRoute[];
   saga: Saga;

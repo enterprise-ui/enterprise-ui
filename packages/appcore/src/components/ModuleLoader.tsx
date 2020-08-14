@@ -3,6 +3,8 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { withRouter } from 'react-router-dom';
 
+import { I18N,II18n } from '../context/beans/i18n';
+import { useInject } from '../context/DIReactContext';
 import { IApplicationConfig, IModule, IRoute } from '../Models';
 import { renderRoutes } from '../router/renderRoutes';
 import { IStore } from '../store/Models';
@@ -15,8 +17,8 @@ interface IOwnProps {
 }
 
 interface IState {
-  routes: IRoute[];
   isLoading: boolean;
+  routes: IRoute[];
 }
 
 const getDefaultState = (): IState => ({
@@ -30,6 +32,7 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
   store,
 }) => {
   const [state, setState] = React.useState<IState>(getDefaultState());
+  const [i18n] = useInject<II18n<any>>(I18N);
   const { isLoading, routes } = state;
 
   React.useEffect(() => {
@@ -40,6 +43,7 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
 
       if (target) {
         const { injectedReducerKey, injectedSagaKey, loadModule, moduleName, useSrc } = target;
+
         let module: IModule;
 
         if (useSrc) {
@@ -49,10 +53,14 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
           module = moduleName ? window[moduleName] : {};
         }
 
-        const { reducer, routes, saga } = module;
+        const { i18nConfig, reducer, routes, saga } = module;
+
+        if (i18n && i18nConfig) {
+          await i18n.init(i18nConfig);
+          await i18n.loadNamespaces(i18nConfig.ns);
+        }
 
         injectReducer(store, injectedReducerKey, reducer);
-
         injectSaga(store, injectedSagaKey, { saga });
 
         setState({ isLoading: false, routes });
