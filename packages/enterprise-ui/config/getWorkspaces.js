@@ -80,11 +80,12 @@ function getPackageParams(packageJson, includesModules, mode) {
   const params = packageJson['enterprise-ui'];
 
   if (include && params) {
-    const { hot, key, mainsrc, publicPath } = params || {};
+    const { hot, key, mainsrc, nls, publicPath } = params || {};
 
     return {
       key,
       mainsrc,
+      nls,
       packageName,
       publicPath,
       useSrc: mode !== 'production' && hot,

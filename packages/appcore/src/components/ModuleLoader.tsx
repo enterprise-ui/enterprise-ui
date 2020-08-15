@@ -56,8 +56,7 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
         const { i18nConfig, reducer, routes, saga } = module;
 
         if (i18n && i18nConfig) {
-          await i18n.init(i18nConfig);
-          await i18n.loadNamespaces(i18nConfig.ns);
+          await i18n.load(i18nConfig);
         }
 
         injectReducer(store, injectedReducerKey, reducer);
@@ -75,10 +74,7 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
 
   return (
     <div>
-      {isLoading && routes.length === 0 && <span>routes loading</span>}
-      {isLoading && routes.length > 0 && <span>routes updating</span>}
-      {!isLoading && routes.length > 0 && <span>routes loaded</span>}
-      {!isLoading && routes.length === 0 && <span>routes are not found</span>}
+      {isLoading && <span>routes loading</span>}
       {renderRoutes(routes)}
     </div>
   );

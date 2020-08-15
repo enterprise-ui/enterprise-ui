@@ -1,21 +1,23 @@
 import React from 'react';
 
-import { IDIContainer } from './container';
+import { createDIFactory, IDIContainer } from './container';
 
 interface IDIContext {
-  container?: IDIContainer;
+  container: IDIContainer;
 }
 
-export const DIContext = React.createContext<IDIContext>({});
+export const DIContext = React.createContext<IDIContext>({
+  container: createDIFactory()
+});
 
-export const useDIContext = (): IDIContainer | undefined => {
+export const useDIContext = (): IDIContainer => {
   const {container} = React.useContext<IDIContext>(DIContext);
 
   return container;
 };
 
-export function useInject<T>(id: symbol): [T] | [] {
+export function useInject<T>(id: symbol): [T] {
   const container = useDIContext();
 
-  return container ? [container.get<T>(id)] : [];
+  return [container.get<T>(id)];
 }

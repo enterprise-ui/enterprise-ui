@@ -1,8 +1,8 @@
 import { Container as InversifyContainer, interfaces } from 'inversify';
 
 export interface IDIContainer {
-  addSingleton<T>(constructor: any, id: symbol): interfaces.BindingWhenOnSyntax<T>;
-  get<T>(id: symbol): T;
+  addSingleton: <T>(constructor: any, id: symbol) => interfaces.BindingWhenOnSyntax<T>;
+  get: <T>(id: symbol) => T;
 }
 
 class DIContainer extends InversifyContainer implements IDIContainer {
