@@ -59,7 +59,7 @@ export interface IModule {
   saga: Saga;
 }
 
-interface IModuleConfig {
+export interface IModuleConfig {
   injectedReducerKey: string;
   injectedSagaKey: string;
   loadModule: () => Promise<IModule>;

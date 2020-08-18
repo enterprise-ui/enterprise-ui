@@ -9,7 +9,7 @@ const getWorkspaces = require('../config/getWorkspaces');
 const { packages } = require(paths.appConfig);
 
 const workspaces = getWorkspaces(paths.rootPackageJson, packages);
-const routes = workspaces.map(({publicPath}) => publicPath);
+const routes = workspaces.map(({publicPath}) => path.join(publicPath, '*'));
 
 const app = express();
 
@@ -25,11 +25,11 @@ app.use(
   })
 );
 
+app.use(express.static(paths.appBuild, {index: false}));
+
 app.get(['/', ...routes], function (req, res) {
   res.status(200).sendFile(path.join(paths.appBuild, '/index.html'));
 });
-
-app.use(express.static(paths.appBuild, {index: false}));
 
 app.use((err, req, res, next) => {
   if (req.xhr) {

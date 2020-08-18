@@ -1,4 +1,4 @@
-import { ModuleLoader } from './components/ModuleLoader';
+import { ModuleRouter } from './components/ModuleRouter';
 import { API, IAPI, IGetRequest } from './context/beans/api';
 import { I18N,II18n } from './context/beans/i18n';
 import { createDIFactory } from './context/container';
@@ -52,7 +52,7 @@ export {
   getService,
   injectReducer,
   injectSaga,
-  ModuleLoader,
+  ModuleRouter,
   useInject,
   withInitialProps,
 };
