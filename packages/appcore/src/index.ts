@@ -22,6 +22,7 @@ import {
   TReactComponentType,
   TRouteComponent,
 } from './Models';
+import { makePath } from './Utils';
 import withInitialProps from './withInitialProps';
 
 export type {
@@ -52,6 +53,7 @@ export {
   getService,
   injectReducer,
   injectSaga,
+  makePath,
   ModuleRouter,
   useInject,
   withInitialProps,

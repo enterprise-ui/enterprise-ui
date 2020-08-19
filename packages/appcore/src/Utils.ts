@@ -20,3 +20,16 @@ export function qs2json(queryString: string): any {
 export function json2qs(obj: any): string {
     return qs.stringify(obj, {allowDots: true});
 }
+
+export function makePath(path: string, params?: any): string {
+    if (params) {
+        const keys = Object.keys(params);
+        keys.forEach((key) => {
+            const skey = `:${key}`;
+            if (path.indexOf(skey) !== -1) {
+                path = path.replace(skey, params[key]);
+            }
+        });
+    }
+    return path;
+}
