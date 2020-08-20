@@ -1,6 +1,6 @@
 import { ModuleRouter } from './components/ModuleRouter';
 import { API, IAPI, IGetRequest } from './context/beans/api';
-import { I18N, II18N } from './context/beans/i18n';
+import { II18N } from './context/beans/i18n';
 import { createDIFactory } from './context/container';
 import { DIContext, useInject } from './context/DIReactContext';
 import { getService } from './context/DISagaContext';
@@ -8,6 +8,7 @@ import configureStore from './store/configureStore';
 import { IStore } from './store/Models';
 import injectReducer from './store/utils/injectReducer';
 import injectSaga from './store/utils/injectSaga';
+import { I18NService } from './i18n';
 import InitialPropsDecorator from './InitialPropsDecorator';
 import {
   IApplicationConfig,
@@ -46,7 +47,7 @@ export type {
 export {
   API,
   DIContext,
-  I18N,
+  I18NService,
   InitialPropsDecorator,
   configureStore,
   createDIFactory,
