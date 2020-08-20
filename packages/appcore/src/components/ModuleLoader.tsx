@@ -2,7 +2,7 @@ import React from 'react';
 
 import { RouteComponentProps } from 'react-router';
 
-import { I18N,II18n } from '../context/beans/i18n';
+import { I18N, II18N } from '../context/beans/i18n';
 import { useInject } from '../context/DIReactContext';
 import { IModule, IModuleConfig, IRoute } from '../Models';
 import { renderRoutes } from '../router/renderRoutes';
@@ -31,7 +31,8 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
   store,
 }) => {
   const [state, setState] = React.useState<IState>(getDefaultState());
-  const [i18n] = useInject<II18n<any>>(I18N);
+  const [i18n] = useInject<II18N>(I18N);
+
   const { routes } = state;
 
   React.useEffect(() => {
@@ -62,8 +63,6 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
-
-  console.log('ModuleLoader.render');
 
   return renderRoutes(routes);
 };

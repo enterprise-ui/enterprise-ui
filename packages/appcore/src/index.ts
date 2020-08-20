@@ -1,6 +1,6 @@
 import { ModuleRouter } from './components/ModuleRouter';
 import { API, IAPI, IGetRequest } from './context/beans/api';
-import { I18N,II18n } from './context/beans/i18n';
+import { I18N, II18N } from './context/beans/i18n';
 import { createDIFactory } from './context/container';
 import { DIContext, useInject } from './context/DIReactContext';
 import { getService } from './context/DISagaContext';
@@ -30,7 +30,7 @@ export type {
   IApplicationConfig,
   IContext,
   IGetRequest,
-  II18n,
+  II18N,
   IMatchedRouteLoadable,
   IModule,
   IPackageReducerConfig,

@@ -1,5 +1,5 @@
-export interface II18n<TConfig> {
-  load: (config: TConfig) => Promise<any>;
+export interface II18N {
+  load: (config: any) => Promise<any>;
   t: (key: string) => string;
 }
 
