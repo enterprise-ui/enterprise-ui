@@ -18,5 +18,5 @@ export interface II18NConfig {
 }
 
 export interface II18NLoadable {
-  loadNamespaces: (config: II18NConfig) => Promise<any>;
+  load: () => Promise<any>;
 }

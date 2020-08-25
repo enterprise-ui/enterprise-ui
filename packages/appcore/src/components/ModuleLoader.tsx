@@ -52,11 +52,11 @@ const ModuleLoader: React.FunctionComponent<IOwnProps & RouteComponentProps> = (
       const { i18nConfig, reducer, routes, saga } = module;
 
       if (i18nConfig) {
-        diContainer.addSingleton<II18NLoadable>(I18NService, i18nConfig.diI18nKey);
+        diContainer.addSingleton<II18NLoadable>(I18NService, i18nConfig.diI18nKey, i18nConfig);
 
         const i18n = diContainer.get<II18NLoadable>(i18nConfig.diI18nKey);
 
-        await i18n.loadNamespaces(i18nConfig);
+        await i18n.load();
       }
 
       injectReducer(store, injectedReducerKey, reducer);
