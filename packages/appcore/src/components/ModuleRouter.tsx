@@ -1,33 +1,31 @@
 import React from 'react';
 
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-
 import { IApplicationConfig } from '../Models';
 import { renderRoutes } from '../router/renderRoutes';
-import { IStore } from '../store/Models';
 
 import { ModuleLoader } from './ModuleLoader';
 
 interface IOwnProps {
   appConfig: IApplicationConfig;
-  store: IStore;
 }
 
-const ModuleRouter: React.FunctionComponent<IOwnProps & RouteComponentProps> = ({ appConfig, store }) => {
-  const paths = Object.keys(appConfig);
+const ModuleRouter: React.FunctionComponent<IOwnProps> = 
+  ({ appConfig }) => {
+    const paths = Object.keys(appConfig);
 
-  const routes = paths.map((path) => ({
-    render: (props: RouteComponentProps) => <ModuleLoader {...props} config={appConfig[path]} store={store} />,
-    path: path + '/*',
-  }));
+    const routes = paths.map((path) => ({
+      key: path,
+      path: path + '/*',
+      render: () => {
+        return <ModuleLoader config={appConfig[path]} />
+      },
+    }));
 
-  console.log('ModuleRouter.render');
+    console.log('ModuleRouter.render');
 
-  return renderRoutes(routes);
-};
+    return renderRoutes(routes);
+  }
 
 ModuleRouter.displayName = 'ModuleRouter';
 
-const ModuleRouterEnhanced = withRouter(ModuleRouter);
-
-export { ModuleRouterEnhanced as ModuleRouter };
+export { ModuleRouter };
