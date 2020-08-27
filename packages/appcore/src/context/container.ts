@@ -32,10 +32,7 @@ class DIContainer extends InversifyContainer implements IDIContainer {
     props?: any,
   ): interfaces.BindingWhenOnSyntax<T> {
     if (props) {
-      return super
-        .bind<T>(id)
-        .toDynamicValue(() => new c(props))
-        .inSingletonScope();
+      return super.bind<T>(id).toConstantValue(new c(props));
     }
 
     return super.bind<T>(id).to(c).inSingletonScope();
